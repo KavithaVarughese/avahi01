@@ -1507,6 +1507,8 @@ static void init_rand_seed(void) {
 }
 
 int main(int argc, char *argv[]) {
+//fprintf(stderr, _("Entering avahi daemon\n"));
+printf("Entering avahi-daemon\n");
     int r = 255;
     int wrote_pid_file = 0;
 

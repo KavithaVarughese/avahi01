@@ -141,9 +141,8 @@ static int register_stuff(Config *config) {
                 return -1;
             }
     }
-
     avahi_entry_group_commit(entry_group);
-
+	
     return 0;
 }
 
@@ -340,6 +339,7 @@ static int parse_command_line(Config *c, const char *argv0, int argc, char *argv
 }
 
 int main(int argc, char *argv[]) {
+fprintf(stderr, _("Entered avahi-publish\n"));
     int ret = 1, error;
     Config config;
     const char *argv0;
@@ -402,7 +402,7 @@ int main(int argc, char *argv[]) {
 
                 fprintf(stderr, _("Server version: %s; Host name: %s\n"), version, hn);
             }
-
+	
             avahi_simple_poll_loop(simple_poll);
             ret = 0;
             break;

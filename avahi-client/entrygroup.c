@@ -21,9 +21,16 @@
 #include <config.h>
 #endif
 
+#define foo 0
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <getopt.h>
+#include <assert.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <locale.h>
 
 #include <dbus/dbus.h>
 
@@ -35,6 +42,7 @@
 
 #include "client.h"
 #include "internal.h"
+#include "dbus-print-message.h"
 
 void avahi_entry_group_set_state(AvahiEntryGroup *group, AvahiEntryGroupState state) {
     assert(group);
@@ -50,6 +58,7 @@ void avahi_entry_group_set_state(AvahiEntryGroup *group, AvahiEntryGroupState st
 }
 
 static int retrieve_state(AvahiEntryGroup *group) {
+printf("Enter retrieve State\n");
     DBusMessage *message = NULL, *reply = NULL;
     DBusError error;
     int r = AVAHI_OK;
@@ -77,7 +86,8 @@ static int retrieve_state(AvahiEntryGroup *group) {
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-
+	
+    print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -99,6 +109,7 @@ fail:
 }
 
 AvahiEntryGroup* avahi_entry_group_new (AvahiClient *client, AvahiEntryGroupCallback callback, void *userdata) {
+printf("Enter Avahi entry group new\n");
     AvahiEntryGroup *group = NULL;
     DBusMessage *message = NULL, *reply = NULL;
     DBusError error;
@@ -161,7 +172,7 @@ AvahiEntryGroup* avahi_entry_group_new (AvahiClient *client, AvahiEntryGroupCall
     }
 
     avahi_entry_group_set_state(group, (AvahiEntryGroupState) state);
-
+    print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -186,7 +197,9 @@ fail:
 }
 
 static int entry_group_simple_method_call(AvahiEntryGroup *group, const char *method) {
-    DBusMessage *message = NULL, *reply = NULL;
+printf("Enter entry group simple method call\n");
+    struct DBusMessage *message = NULL, *reply = NULL;
+    //DBusString **header;
     DBusError error;
     int r = AVAHI_OK;
     AvahiClient *client;
@@ -200,19 +213,25 @@ static int entry_group_simple_method_call(AvahiEntryGroup *group, const char *me
         r = avahi_client_set_errno(client, AVAHI_ERR_NO_MEMORY);
         goto fail;
     }
-
     if (!(reply = dbus_connection_send_with_reply_and_block(client->bus, message, -1, &error)) ||
         dbus_error_is_set (&error)) {
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
+	//print_message(message, FALSE);
+//printmessage(message);
+    
+//*header = &message->header.data;
+    //if (message->header == NULL)
+	//printf("Is null\n");
+    //printf("message size_counter_data %s\n", str(message->body));
 
     if (!dbus_message_get_args(reply, &error, DBUS_TYPE_INVALID) ||
         dbus_error_is_set (&error)) {
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-
+    print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -256,7 +275,7 @@ int avahi_entry_group_commit(AvahiEntryGroup *group) {
 
     if (!group->path || !avahi_client_is_connected(group->client))
         return avahi_client_set_errno(group->client, AVAHI_ERR_BAD_STATE);
-
+	
     if ((ret = entry_group_simple_method_call(group, "Commit")) < 0)
         return ret;
 
@@ -294,6 +313,7 @@ AvahiClient* avahi_entry_group_get_client (AvahiEntryGroup *group) {
 }
 
 int avahi_entry_group_is_empty (AvahiEntryGroup *group) {
+printf("Enter avahi entry group is empty\n");
     DBusMessage *message = NULL, *reply = NULL;
     DBusError error;
     int r = AVAHI_OK;
@@ -324,7 +344,7 @@ int avahi_entry_group_is_empty (AvahiEntryGroup *group) {
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-
+    print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -346,6 +366,7 @@ fail:
 }
 
 static int append_rdata(DBusMessage *message, const void *rdata, size_t size) {
+printf("Enter append rdata\n");
     DBusMessageIter iter, sub;
 
     assert(message);
@@ -361,6 +382,7 @@ static int append_rdata(DBusMessage *message, const void *rdata, size_t size) {
 }
 
 static int append_string_list(DBusMessage *message, AvahiStringList *txt) {
+printf("Enter append string list\n");
     DBusMessageIter iter, sub;
     int r = -1;
     AvahiStringList *p;
@@ -388,7 +410,7 @@ static int append_string_list(DBusMessage *message, AvahiStringList *txt) {
 
     if (!dbus_message_iter_close_container(&iter, &sub))
         goto fail;
-
+    print_message(message, FALSE);
     r = 0;
 
 fail:
@@ -410,6 +432,7 @@ int avahi_entry_group_add_service_strlst(
     const char *host,
     uint16_t port,
     AvahiStringList *txt) {
+printf("Enter entry group add service strlst\n");
 
     DBusMessage *message = NULL, *reply = NULL;
     int r = AVAHI_OK;
@@ -459,6 +482,7 @@ int avahi_entry_group_add_service_strlst(
         r = avahi_client_set_errno(group->client, AVAHI_ERR_NO_MEMORY);
         goto fail;
     }
+	
 
     if (!(reply = dbus_connection_send_with_reply_and_block(client->bus, message, -1, &error)) ||
         dbus_error_is_set (&error)) {
@@ -471,7 +495,7 @@ int avahi_entry_group_add_service_strlst(
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-
+    print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -528,7 +552,7 @@ int avahi_entry_group_add_service_subtype(
     const char *type,
     const char *domain,
     const char *subtype) {
-
+printf("Enter enter group add service subtype\n");
     DBusMessage *message = NULL, *reply = NULL;
     int r = AVAHI_OK;
     DBusError error;
@@ -639,7 +663,7 @@ int avahi_entry_group_update_service_txt_strlst(
     const char *type,
     const char *domain,
     AvahiStringList *txt) {
-
+printf("Enter avahi entry group update service txt strlst\n");
     DBusMessage *message = NULL, *reply = NULL;
     int r = AVAHI_OK;
     DBusError error;
@@ -725,7 +749,7 @@ int avahi_entry_group_add_address(
     AvahiPublishFlags flags,
     const char *name,
     const AvahiAddress *a) {
-
+printf("Enter avahi entry group add address\n");
     DBusMessage *message = NULL, *reply = NULL;
     int r = AVAHI_OK;
     DBusError error;
@@ -816,7 +840,7 @@ int avahi_entry_group_add_record(
     uint32_t ttl,
     const void *rdata,
     size_t size) {
-
+printf("Enter avahi entry group add record\n");
     DBusMessage *message = NULL, *reply = NULL;
     int r = AVAHI_OK;
     DBusError error;

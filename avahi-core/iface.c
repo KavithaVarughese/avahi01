@@ -175,6 +175,8 @@ void avahi_interface_monitor_update_rrs(AvahiInterfaceMonitor *m, int remove_rrs
 }
 
 static int interface_mdns_mcast_join(AvahiInterface *i, int join) {
+//fprintf(stderr, _("Enter core/iface.c , interface mdns mcast join\n"));
+printf("Enter avahi-core/iface.c , interace mdns mcast join");
     char at[AVAHI_ADDRESS_STR_MAX];
     int r;
     assert(i);

@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#include <stdio.h>
 #include <poll.h>
 #include <assert.h>
 #include <string.h>
@@ -596,15 +597,19 @@ finish:
 int avahi_simple_poll_iterate(AvahiSimplePoll *s, int timeout) {
     int r;
 
-    if ((r = avahi_simple_poll_prepare(s, timeout)) != 0)
-        return r;
-
+    if ((r = avahi_simple_poll_prepare(s, timeout)) != 0){
+printf("r1 = %d", r);
+        return r;}
+	
     if ((r = avahi_simple_poll_run(s)) != 0)
-        return r;
+        {
+printf("r2 = %d", r);
+return r;}
 
     if ((r = avahi_simple_poll_dispatch(s)) != 0)
-        return r;
-
+        {
+printf("r3 = %d", r);
+return r;}
     return 0;
 }
 
@@ -642,8 +647,8 @@ int avahi_simple_poll_loop(AvahiSimplePoll *s) {
 
     assert(s);
 
-    for (;;)
+    for (;;){
         if ((r = avahi_simple_poll_iterate(s, -1)) != 0)
             if (r >= 0 || errno != EINTR)
-                return r;
+                return r;}
 }

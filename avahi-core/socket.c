@@ -65,6 +65,8 @@
 #endif
 
 static void mdns_mcast_group_ipv4(struct sockaddr_in *ret_sa) {
+printf("enter core/socket.c , mdns_mcast_group_ipv4");
+//fprintf(stderr, _("Enter core/socket.c mdns mcast group ipv4\n"));
     assert(ret_sa);
 
     memset(ret_sa, 0, sizeof(struct sockaddr_in));

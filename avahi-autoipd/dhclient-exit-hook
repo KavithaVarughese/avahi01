@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # This file is part of avahi.
 #
 # avahi is free software; you can redistribute it and/or modify it
@@ -15,7 +17,17 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA.
 
-EXTRA_DIST = gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 nls.m4 po.m4 progtest.m4 gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 nls.m4 po.m4 progtest.m4 \
-	doxygen.m4 \
-	doxygen.mk \
-	python.m4
+case "$reason" in
+    MEDIUM|ARPCHECK|ARPSEND|NBI)
+        ;;
+
+    PREINIT|BOUND|RENEW|REBIND|REBOOT|STOP|RELEASE)
+        # Stopping avahi-autoipd is left for the enter hook
+        ;;
+
+    EXPIRE|FAIL|TIMEOUT)
+        if [ -x /usr/local/sbin/avahi-autoipd ] ; then
+            /usr/local/sbin/avahi-autoipd -wD $interface 2> /dev/null
+        fi
+        ;;
+esac
