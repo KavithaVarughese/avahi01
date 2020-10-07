@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <stdlib.h>
 #include <avahi-common/malloc.h>
 #include <avahi-common/dbus.h>
 #include <avahi-common/error.h>
@@ -33,7 +34,7 @@
 #include "main.h"
 
 void avahi_dbus_sync_service_resolver_free(SyncServiceResolverInfo *i) {
-printf("Enter dbus sync service resolver free\n");
+printf(" Enter dbus sync service resolver free >> printlog.txt");
     assert(i);
 
     if (i->service_resolver)
@@ -62,7 +63,7 @@ void avahi_dbus_sync_service_resolver_callback(
     AvahiStringList *txt,
     AvahiLookupResultFlags flags,
     void* userdata) {
-printf("Enter dbus sync service resolver callback\n");
+printf(" Enter dbus sync service resolver callback >> printlog.txt\n");
     SyncServiceResolverInfo *i = userdata;
 
     assert(r);

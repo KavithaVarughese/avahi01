@@ -68,6 +68,7 @@ static void dbus_disconnect(void);
 
 static void client_free(Client *c) {
 printf("Enter client free\n");
+system("Echo Enter client free >> printlog.txt");
 
     assert(server);
     assert(c);

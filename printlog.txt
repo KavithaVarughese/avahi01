@@ -1,0 +1,109 @@
+● avahi-daemon.service - Avahi mDNS/DNS-SD Stack
+   Loaded: loaded (/lib/systemd/system/avahi-daemon.service; enabled; vendor preset: enabled)
+   Active: active (running) since Wed 2020-10-07 17:22:32 IST; 19min ago
+ Main PID: 7171 (avahi-daemon)
+   Status: "Server startup complete. Host name is snoopsxox-VirtualBox.local. Local service cookie is 3905822800."
+    Tasks: 1 (limit: 4667)
+   CGroup: /system.slice/avahi-daemon.service
+           └─7171 avahi-daemon: running [snoopsxox-VirtualBox.local]
+
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for fe80::9c61:bbff:fee2:cd98 on cni0.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 10.244.0.1 on cni0.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for fe80::206c:76ff:fed2:3c7f on flannel.1.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 10.244.0.0 on flannel.1.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 172.17.0.1 on docker0.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 172.19.0.1 on br-a9f8eed38ecc.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 172.18.0.1 on br-79b44b61593e.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 2405:201:f003:68b4:4150:e4e7:f286:11b6 on enp0s8.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 2405:201:f003:68b4:e4c3:c2cb:8596:3180 on enp0s8.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 192.168.29.120 on enp0s8.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for fe80::2ca:bee8:a3d0:f55c on enp0s3.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 10.0.2.15 on enp0s3.IPv4.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for ::1 on lo.*.
+Oct 07 17:22:32 snoopsxox-VirtualBox avahi-daemon[7171]: Registering new address record for 127.0.0.1 on lo.IPv4.
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Server startup complete. Host name is snoopsxox-VirtualBox.local. Local service cookie is 3905822800.
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter load file
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter static service group new
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter static service group load
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter remove static service group from server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml start
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml start
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter append cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml start
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter static service new
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml start
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter append cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml start
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter append cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml cdata
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter xml end
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4Enter avahi-core/iface.c , interace mdns mcast joinEnter avahi-core/iface.c , interace mdns mcast joinenter core/socket.c , mdns_mcast_group_ipv4 Enter server callback >> printlog.txtEnter dbus protocol server state changed
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter sd notify
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter set proc title
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter static service remove from server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter remove static service group from server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]:  Enter remove dns server entry groups >> printlog.txt Enter update wide area servers >> printlog.txt Enter update browse domains >> printlog.txt Enter filter duplicate domains >> printlog.txtEnter msg signal filter impl
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4 Enter server callback >> printlog.txtEnter dbus protocol server state changed
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter sd notify
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter set proc title
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter static service add to server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter add static service group to server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter replacestr
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter entry group callback
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter add static service group to server
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter replacestr
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]: Enter entry group callback
+Oct 07 17:22:33 snoopsxox-VirtualBox avahi-daemon[7171]:  Enter remove dns server entry groups >> printlog.txtEnter simple protocol restart
+Oct 07 17:22:34 snoopsxox-VirtualBox avahi-daemon[7171]: Service "snoopsxox-VirtualBox" (/etc/avahi/services/ssh.service) successfully established.
+Oct 07 17:22:34 snoopsxox-VirtualBox avahi-daemon[7171]: Service "snoopsxox-VirtualBox" (/etc/avahi/services/sftp-ssh.service) successfully established.
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4Enter entry group callback
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter entry group callback
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4enter core/socket.c , mdns_mcast_group_ipv4Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg server impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus select common methods
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus get api version
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond uint32
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg server impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus select common methods
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus get state
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond int32
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg server impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus select common methods
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus create new entry group
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter client get
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond path
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus msg entry group impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond int32
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus msg entry group impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond boolean
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus msg entry group impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus read strlst
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond ok
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter msg signal filter impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus msg entry group impl
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus entry group callback
+Oct 07 17:23:24 snoopsxox-VirtualBox avahi-daemon[7171]: Enter dbus respond ok
