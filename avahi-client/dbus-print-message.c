@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include "config.h"
 
+
+
 static const char*
 type_to_name (int message_type)
 {
@@ -158,8 +160,12 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	{
 	case DBUS_TYPE_STRING:
 	  {
+            printf("------------ %x ---------------\n", *iter);
 	    char *val;
 	    dbus_message_iter_get_basic (iter, &val);
+            printf("-----------------------------------");
+            //_dbus_verbose_bytes (val, strlen(val), 0);
+            printf("-----------------------------------");
 	    if (!literal)
 	      printf ("string \"");
 	    printf ("%s", val);
@@ -171,6 +177,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_SIGNATURE:
 	  {
 	    char *val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    if (!literal)
 	      printf ("signature \"");
@@ -183,6 +190,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_OBJECT_PATH:
 	  {
 	    char *val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    if (!literal)
 	      printf ("object path \"");
@@ -195,6 +203,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_INT16:
 	  {
 	    dbus_int16_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("int16 %d\n", val);
 	    break;
@@ -203,6 +212,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_UINT16:
 	  {
 	    dbus_uint16_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("uint16 %u\n", val);
 	    break;
@@ -211,6 +221,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_INT32:
 	  {
 	    dbus_int32_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("int32 %d\n", val);
 	    break;
@@ -219,6 +230,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_UINT32:
 	  {
 	    dbus_uint32_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("uint32 %u\n", val);
 	    break;
@@ -227,6 +239,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_INT64:
 	  {
 	    dbus_int64_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 #ifdef DBUS_INT64_PRINTF_MODIFIER
         printf ("int64 %" DBUS_INT64_PRINTF_MODIFIER "d\n", val);
@@ -239,6 +252,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_UINT64:
 	  {
 	    dbus_uint64_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 #ifdef DBUS_INT64_PRINTF_MODIFIER
         printf ("uint64 %" DBUS_INT64_PRINTF_MODIFIER "u\n", val);
@@ -251,6 +265,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_DOUBLE:
 	  {
 	    double val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("double %g\n", val);
 	    break;
@@ -259,6 +274,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_BYTE:
 	  {
 	    unsigned char val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("byte %d\n", val);
 	    break;
@@ -267,6 +283,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_BOOLEAN:
 	  {
 	    dbus_bool_t val;
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_get_basic (iter, &val);
 	    printf ("boolean %s\n", val ? "true" : "false");
 	    break;
@@ -286,7 +303,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	  {
 	    int current_type;
 	    DBusMessageIter subiter;
-
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_recurse (iter, &subiter);
 
 	    current_type = dbus_message_iter_get_arg_type (&subiter);
@@ -315,6 +332,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	case DBUS_TYPE_DICT_ENTRY:
 	  {
 	    DBusMessageIter subiter;
+             printf("------------ %x ---------------\n", *iter);
 
 	    dbus_message_iter_recurse (iter, &subiter);
 
@@ -331,7 +349,7 @@ print_iter (DBusMessageIter *iter, dbus_bool_t literal, int depth)
 	  {
 	    int current_type;
 	    DBusMessageIter subiter;
-
+            printf("------------ %x ---------------\n", *iter);
 	    dbus_message_iter_recurse (iter, &subiter);
 
 	    printf("struct {\n");
@@ -370,7 +388,8 @@ print_message (DBusMessage *message, dbus_bool_t literal)
   if (!literal)
     {
 
-      printf ("%s sender=%s -> dest=%s",
+      printf ("Message is %p\n Method type %s\n sender=%s -> dest=%s\n",
+              message,
 	      type_to_name (message_type),
 	      sender ? sender : "(null sender)",
        	      destination ? destination : "(null destination)");
@@ -379,7 +398,7 @@ print_message (DBusMessage *message, dbus_bool_t literal)
 	{
 	case DBUS_MESSAGE_TYPE_METHOD_CALL:
 	case DBUS_MESSAGE_TYPE_SIGNAL:
-	  printf (" serial=%u path=%s; interface=%s; member=%s\n",
+	  printf ("serial=%u\n path=%s\n interface=%s\n member=%s\n",
                   dbus_message_get_serial (message),
 		  dbus_message_get_path (message),
 		  dbus_message_get_interface (message),
@@ -392,7 +411,7 @@ print_message (DBusMessage *message, dbus_bool_t literal)
 	  break;
 
 	case DBUS_MESSAGE_TYPE_ERROR:
-	  printf (" error_name=%s reply_serial=%u\n",
+	  printf (" error_name=%s\n reply_serial=%u\n",
 		  dbus_message_get_error_name (message),
           dbus_message_get_reply_serial (message));
 	  break;

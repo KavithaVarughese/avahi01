@@ -22,7 +22,7 @@
 #endif
 
 #include <string.h>
-
+#include <stdio.h>
 #include <avahi-common/malloc.h>
 #include <avahi-common/dbus.h>
 #include <avahi-common/error.h>
@@ -33,6 +33,7 @@
 #include "main.h"
 
 void avahi_dbus_async_address_resolver_free(AsyncAddressResolverInfo *i) {
+printf("Enter dbus_async_address_resolver_free\n");
     const AvahiPoll *poll_api = NULL;
 
     assert(i);
@@ -59,6 +60,7 @@ void avahi_dbus_async_address_resolver_free(AsyncAddressResolverInfo *i) {
 }
 
 void avahi_dbus_async_address_resolver_start(AsyncAddressResolverInfo *i) {
+printf("Enter dbus_async_address_resolver_start\n");
     assert(i);
 
     if(i->address_resolver)
@@ -66,6 +68,7 @@ void avahi_dbus_async_address_resolver_start(AsyncAddressResolverInfo *i) {
 }
 
 void avahi_dbus_async_address_resolver_callback(AvahiSAddressResolver *r, AvahiIfIndex interface, AvahiProtocol protocol, AvahiResolverEvent event, const AvahiAddress *address, const char *host_name, AvahiLookupResultFlags flags, void* userdata) {
+printf("Enter dbus_async_address_resolver_callback\n");
     AsyncAddressResolverInfo *i = userdata;
     DBusMessage *reply;
 
@@ -114,6 +117,7 @@ void avahi_dbus_async_address_resolver_callback(AvahiSAddressResolver *r, AvahiI
 }
 
 DBusHandlerResult avahi_dbus_msg_async_address_resolver_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
+printf("Enter dbus_msg_async_address_resolver_impl\n");
     DBusError error;
     AsyncAddressResolverInfo *i = userdata;
 

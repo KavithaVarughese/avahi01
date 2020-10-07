@@ -45,6 +45,7 @@
 #include "sd-daemon.h"
 
 int sd_listen_fds(int unset_environment) {
+printf("Enter sd listen fds\n");
 
 #if defined(DISABLE_SYSTEMD) || !defined(__linux__)
         return 0;
@@ -126,6 +127,7 @@ finish:
 }
 
 int sd_is_fifo(int fd, const char *path) {
+printf("Enter sd is fifo\n");
         struct stat st_fd;
 
         if (fd < 0)
@@ -159,6 +161,7 @@ int sd_is_fifo(int fd, const char *path) {
 }
 
 static int sd_is_socket_internal(int fd, int type, int listening) {
+printf("Enter sd is socket internal\n");
         struct stat st_fd;
 
         if (fd < 0 || type < 0)
@@ -210,6 +213,7 @@ union sockaddr_union {
 };
 
 int sd_is_socket(int fd, int family, int type, int listening) {
+printf("Enter sd is socket\n");
         int r;
 
         if (family < 0)
@@ -238,6 +242,7 @@ int sd_is_socket(int fd, int family, int type, int listening) {
 }
 
 int sd_is_socket_inet(int fd, int family, int type, int listening, uint16_t port) {
+printf("Enter sd is socket inet\n");
         union sockaddr_union sockaddr;
         socklen_t l;
         int r;
@@ -283,6 +288,7 @@ int sd_is_socket_inet(int fd, int family, int type, int listening, uint16_t port
 }
 
 int sd_is_socket_unix(int fd, int type, int listening, const char *path, size_t length) {
+printf("Enter sd is socket unix\n");
         union sockaddr_union sockaddr;
         socklen_t l;
         int r;
@@ -326,6 +332,7 @@ int sd_is_socket_unix(int fd, int type, int listening, const char *path, size_t 
 }
 
 int sd_notify(int unset_environment, const char *state) {
+printf("Enter sd notify\n");
 #if defined(DISABLE_SYSTEMD) || !defined(__linux__) || !defined(SOCK_CLOEXEC)
         return 0;
 #else
@@ -394,6 +401,7 @@ finish:
 }
 
 int sd_notifyf(int unset_environment, const char *format, ...) {
+printf("Enter sd notify\n");
 #if defined(DISABLE_SYSTEMD) || !defined(__linux__)
         return 0;
 #else

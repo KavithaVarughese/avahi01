@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -43,6 +44,7 @@
 #include "dbus-util.h"
 
 DBusHandlerResult avahi_dbus_respond_error(DBusConnection *c, DBusMessage *m, int error, const char *text) {
+printf("Enter dbus respond error\n");
     DBusMessage *reply;
 
     assert(-error > -AVAHI_OK);
@@ -67,6 +69,7 @@ DBusHandlerResult avahi_dbus_respond_error(DBusConnection *c, DBusMessage *m, in
 }
 
 DBusHandlerResult avahi_dbus_respond_string(DBusConnection *c, DBusMessage *m, const char *text) {
+printf("Enter dbus respond string\n");
     DBusMessage *reply;
 
     reply = dbus_message_new_method_return(m);
@@ -84,6 +87,7 @@ DBusHandlerResult avahi_dbus_respond_string(DBusConnection *c, DBusMessage *m, c
 }
 
 DBusHandlerResult avahi_dbus_respond_int32(DBusConnection *c, DBusMessage *m, int32_t i) {
+printf("Enter dbus respond int32\n");
     DBusMessage *reply;
 
     reply = dbus_message_new_method_return(m);
@@ -101,6 +105,7 @@ DBusHandlerResult avahi_dbus_respond_int32(DBusConnection *c, DBusMessage *m, in
 }
 
 DBusHandlerResult avahi_dbus_respond_uint32(DBusConnection *c, DBusMessage *m, uint32_t u) {
+printf("Enter dbus respond uint32\n");
     DBusMessage *reply;
 
     reply = dbus_message_new_method_return(m);
@@ -118,6 +123,7 @@ DBusHandlerResult avahi_dbus_respond_uint32(DBusConnection *c, DBusMessage *m, u
 }
 
 DBusHandlerResult avahi_dbus_respond_boolean(DBusConnection *c, DBusMessage *m, int b) {
+printf("Enter dbus respond boolean\n");
     DBusMessage *reply;
 
     reply = dbus_message_new_method_return(m);
@@ -135,6 +141,7 @@ DBusHandlerResult avahi_dbus_respond_boolean(DBusConnection *c, DBusMessage *m, 
 }
 
 DBusHandlerResult avahi_dbus_respond_ok(DBusConnection *c, DBusMessage *m) {
+printf("Enter dbus respond ok\n");
     DBusMessage *reply;
 
     if (dbus_message_get_no_reply(m))
@@ -154,6 +161,7 @@ DBusHandlerResult avahi_dbus_respond_ok(DBusConnection *c, DBusMessage *m) {
 }
 
 DBusHandlerResult avahi_dbus_respond_path(DBusConnection *c, DBusMessage *m, const char *path) {
+printf("Enter dbus respond path\n");
     DBusMessage *reply;
 
     reply = dbus_message_new_method_return(m);
@@ -171,6 +179,7 @@ DBusHandlerResult avahi_dbus_respond_path(DBusConnection *c, DBusMessage *m, con
 }
 
 void avahi_dbus_append_server_error(DBusMessage *reply) {
+printf("Enter dbus append server error\n");
     const char *t;
 
     t = avahi_error_number_to_dbus(avahi_server_errno(avahi_server));
@@ -182,6 +191,7 @@ void avahi_dbus_append_server_error(DBusMessage *reply) {
 }
 
 const char *avahi_dbus_map_browse_signal_name(AvahiBrowserEvent e) {
+printf("Enter dbus map browser signal name\n");
     switch (e) {
         case AVAHI_BROWSER_NEW : return "ItemNew";
         case AVAHI_BROWSER_REMOVE : return "ItemRemove";
@@ -194,6 +204,7 @@ const char *avahi_dbus_map_browse_signal_name(AvahiBrowserEvent e) {
 }
 
 const char *avahi_dbus_map_resolve_signal_name(AvahiResolverEvent e) {
+printf("Enter dbus map resolve signal name\n");
     switch (e) {
         case AVAHI_RESOLVER_FOUND : return "Found";
         case AVAHI_RESOLVER_FAILURE : return "Failure";
@@ -203,6 +214,7 @@ const char *avahi_dbus_map_resolve_signal_name(AvahiResolverEvent e) {
 }
 
 static char *file_get_contents(const char *fname) {
+printf("Enter file get contents\n");
     int fd = -1;
     struct stat st;
     ssize_t size;
@@ -261,6 +273,7 @@ fail:
 }
 
 DBusHandlerResult avahi_dbus_handle_introspect(DBusConnection *c, DBusMessage *m, const char *fname) {
+printf("Enter dbus handle introspect\n");
     char *contents, *path;
     DBusError error;
 
@@ -298,6 +311,7 @@ fail:
 }
 
 void avahi_dbus_append_string_list(DBusMessage *reply, AvahiStringList *txt) {
+printf("Enter dbus append string list\n");
     AvahiStringList *p;
     DBusMessageIter iter, sub;
 
@@ -319,6 +333,7 @@ void avahi_dbus_append_string_list(DBusMessage *reply, AvahiStringList *txt) {
 }
 
 int avahi_dbus_read_rdata(DBusMessage *m, int idx, void **rdata, uint32_t *size) {
+printf("Enter dbus read rdata\n");
     DBusMessageIter iter, sub;
     int n, j;
     uint8_t *k;
@@ -351,6 +366,7 @@ fail:
 }
 
 int avahi_dbus_read_strlst(DBusMessage *m, int idx, AvahiStringList **l) {
+printf("Enter dbus read strlst\n");
     DBusMessageIter iter, sub;
     int j;
     AvahiStringList *strlst = NULL;
@@ -409,6 +425,7 @@ fail:
 }
 
 int avahi_dbus_is_our_own_service(Client *c, AvahiIfIndex interface, AvahiProtocol protocol, const char *name, const char *type, const char *domain) {
+printf("Enter dbus is our own service\n");
     AvahiSEntryGroup *g;
 
     if (avahi_server_get_group_of_service(avahi_server, interface, protocol, name, type, domain, &g) == AVAHI_OK) {
@@ -423,6 +440,7 @@ int avahi_dbus_is_our_own_service(Client *c, AvahiIfIndex interface, AvahiProtoc
 }
 
 int avahi_dbus_append_rdata(DBusMessage *message, const void *rdata, size_t size) {
+printf("Enter dbus append rdata\n");
     DBusMessageIter iter, sub;
 
     assert(message);

@@ -20,7 +20,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
+#include <stdio.h>
 #include <sys/stat.h>
 #include <glob.h>
 #include <limits.h>
@@ -83,6 +83,7 @@ struct StaticServiceGroup {
 static AVAHI_LLIST_HEAD(StaticServiceGroup, groups) = NULL;
 
 static char *replacestr(const char *pattern, const char *a, const char *b) {
+printf("Enter replacestr\n");
     char *r = NULL, *e, *n;
 
     while ((e = strstr(pattern, a))) {
@@ -114,6 +115,7 @@ static void add_static_service_group_to_server(StaticServiceGroup *g);
 static void remove_static_service_group_from_server(StaticServiceGroup *g);
 
 static StaticService *static_service_new(StaticServiceGroup *group) {
+printf("Enter static service new\n");
     StaticService *s;
 
     assert(group);
@@ -133,6 +135,7 @@ static StaticService *static_service_new(StaticServiceGroup *group) {
 }
 
 static StaticServiceGroup *static_service_group_new(char *filename) {
+printf("Enter static service group new\n");
     StaticServiceGroup *g;
     assert(filename);
 
@@ -150,6 +153,7 @@ static StaticServiceGroup *static_service_group_new(char *filename) {
 }
 
 static void static_service_free(StaticService *s) {
+printf("Enter static service free\n");
     assert(s);
 
     AVAHI_LLIST_REMOVE(StaticService, services, s->group->services, s);
@@ -165,6 +169,7 @@ static void static_service_free(StaticService *s) {
 }
 
 static void static_service_group_free(StaticServiceGroup *g) {
+printf("Enter static service group free\n");
     assert(g);
 
     if (g->entry_group)
@@ -182,6 +187,7 @@ static void static_service_group_free(StaticServiceGroup *g) {
 }
 
 static void entry_group_callback(AvahiServer *s, AVAHI_GCC_UNUSED AvahiSEntryGroup *eg, AvahiEntryGroupState state, void* userdata) {
+printf("Enter entry group callback\n");
     StaticServiceGroup *g = userdata;
 
     assert(s);
@@ -220,6 +226,7 @@ static void entry_group_callback(AvahiServer *s, AVAHI_GCC_UNUSED AvahiSEntryGro
 }
 
 static void add_static_service_group_to_server(StaticServiceGroup *g) {
+printf("Enter add static service group to server\n");
     StaticService *s;
 
     assert(g);
@@ -289,6 +296,7 @@ static void add_static_service_group_to_server(StaticServiceGroup *g) {
 }
 
 static void remove_static_service_group_from_server(StaticServiceGroup *g) {
+printf("Enter remove static service group from server\n");
     assert(g);
 
     if (g->entry_group)
@@ -329,6 +337,7 @@ struct xml_userdata {
 #endif
 
 static void XMLCALL xml_start(void *data, const char *el, const char *attr[]) {
+printf("Enter xml start\n");
     struct xml_userdata *u = data;
 
     assert(u);
@@ -450,6 +459,7 @@ invalid_attr:
 }
 
 static uint8_t hex(char c) {
+printf("Enter hex\n");
   if ((c >= '0') && (c <= '9'))
     return c - '0';
   if ((c >= 'A') && (c <= 'F'))
@@ -460,6 +470,7 @@ static uint8_t hex(char c) {
 }
 
 static int decode_hex_buf(struct xml_userdata *u, uint8_t **out_buf, size_t *out_buf_len) {
+printf("Enter decode hex buf\n");
     const char *buf = (u->buf != NULL) ? u->buf : "";
     size_t buf_len = strlen(buf);
     uint8_t *raw_buf;
@@ -491,6 +502,7 @@ static int decode_hex_buf(struct xml_userdata *u, uint8_t **out_buf, size_t *out
 }
 
 static uint8_t base64(char c) {
+printf("Enter base64\n");
   if (c >= 'A' && c <= 'Z')
     return c - 'A';
   if (c >= 'a' && c <= 'z')
@@ -505,6 +517,7 @@ static uint8_t base64(char c) {
 }
 
 static int base64_error(struct xml_userdata *u, uint8_t *raw_buf) {
+printf("Enter base64_error\n");
     avahi_log_error("%s: parse failure: failed to parse base64 data: invalid base64 data", u->group->filename);
     u->failed = 1;
     avahi_free(raw_buf);
@@ -512,6 +525,7 @@ static int base64_error(struct xml_userdata *u, uint8_t *raw_buf) {
 }
 
 static int decode_base64_buf(struct xml_userdata *u, uint8_t **out_buf, size_t *out_buf_len) {
+printf("Enter decode base64 buf\n");
     const char *buf = (u->buf != NULL) ? u->buf : "";
     size_t buf_len = strlen(buf);
     uint8_t *raw_buf;
@@ -565,6 +579,7 @@ static int decode_base64_buf(struct xml_userdata *u, uint8_t **out_buf, size_t *
 }
 
 static void XMLCALL xml_end(void *data, AVAHI_GCC_UNUSED const char *el) {
+printf("Enter xml end\n");
     struct xml_userdata *u = data;
     assert(u);
 
@@ -690,6 +705,7 @@ static void XMLCALL xml_end(void *data, AVAHI_GCC_UNUSED const char *el) {
 }
 
 static char *append_cdata(char *t, const char *n, int length) {
+printf("Enter append cdata\n");
     char *r, *k;
 
     if (!length)
@@ -709,6 +725,7 @@ static char *append_cdata(char *t, const char *n, int length) {
 }
 
 static void XMLCALL xml_cdata(void *data, const XML_Char *s, int len) {
+printf("Enter xml cdata\n");
     struct xml_userdata *u = data;
     assert(u);
 
@@ -766,6 +783,7 @@ static void XMLCALL xml_cdata(void *data, const XML_Char *s, int len) {
 }
 
 static int static_service_group_load(StaticServiceGroup *g) {
+printf("Enter static service group load\n");
     XML_Parser parser = NULL;
     int fd = -1;
     struct xml_userdata u;
@@ -854,6 +872,7 @@ finish:
 }
 
 static void load_file(char *n) {
+printf("Enter load file\n");
     StaticServiceGroup *g;
     assert(n);
 
@@ -871,6 +890,7 @@ static void load_file(char *n) {
 }
 
 void static_service_load(int in_chroot) {
+printf("Enter static service load\n");
     StaticServiceGroup *g, *n;
     glob_t globbuf;
     int globret;
@@ -928,12 +948,14 @@ void static_service_load(int in_chroot) {
 }
 
 void static_service_free_all(void) {
+printf("Enter static service free all\n");
 
     while (groups)
         static_service_group_free(groups);
 }
 
 void static_service_add_to_server(void) {
+printf("Enter static service add to server\n");
     StaticServiceGroup *g;
 
     for (g = groups; g; g = g->groups_next)
@@ -941,6 +963,7 @@ void static_service_add_to_server(void) {
 }
 
 void static_service_remove_from_server(void) {
+printf("Enter static service remove from server\n");
     StaticServiceGroup *g;
 
     for (g = groups; g; g = g->groups_next)

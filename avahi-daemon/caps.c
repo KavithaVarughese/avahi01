@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#include <stdio.h>
 #include <sys/types.h>
 #include <assert.h>
 #include <errno.h>
@@ -33,6 +34,7 @@
 #include "caps.h"
 
 int avahi_caps_reduce(void) {
+printf("Enter caps_reduce\n");
     int ret = 0;
     cap_t caps;
     static cap_value_t cap_values[] = { CAP_SYS_CHROOT, CAP_SETUID, CAP_SETGID };
@@ -64,6 +66,7 @@ int avahi_caps_reduce(void) {
 }
 
 int avahi_caps_reduce2(void) {
+printf("Enter caps_reduce2\n");
     int ret = 0;
     cap_t caps;
     static cap_value_t cap_values[] = { CAP_SYS_CHROOT };
@@ -96,6 +99,7 @@ int avahi_caps_reduce2(void) {
 }
 
 int avahi_caps_drop_all(void) {
+printf("Enter caps_drop_all\n");
     cap_t caps;
     int ret = 0;
 

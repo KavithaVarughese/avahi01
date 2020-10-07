@@ -44,6 +44,23 @@
 #include "internal.h"
 #include "dbus-print-message.h"
 
+typedef enum {
+    COMMAND_UNSPEC,
+    COMMAND_HELP,
+    COMMAND_VERSION,
+    COMMAND_PUBLISH_SERVICE,
+    COMMAND_PUBLISH_ADDRESS
+} Command1;
+
+typedef struct Config1 {
+    int verbose, no_fail, no_reverse;
+    Command1 command;
+    char *name, *stype, *domain, *host;
+    uint16_t port;
+    AvahiStringList *txt, *subtypes;
+    AvahiAddress address;
+} Config1;
+
 void avahi_entry_group_set_state(AvahiEntryGroup *group, AvahiEntryGroupState state) {
     assert(group);
 
@@ -87,7 +104,7 @@ printf("Enter retrieve State\n");
         goto fail;
     }
 	
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -116,6 +133,8 @@ printf("Enter Avahi entry group new\n");
     char *path;
     int state;
 
+    //Config1 *userdata = (Config1) userdata;
+    
     assert(client);
 
     dbus_error_init (&error);
@@ -172,9 +191,16 @@ printf("Enter Avahi entry group new\n");
     }
 
     avahi_entry_group_set_state(group, (AvahiEntryGroupState) state);
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
+
+    //void *userdata1;
+    //memcpy ( userdata1, userdata, sizeof(userdata) );
+    //Config1 *userdata1 = (Config1 *) malloc(sizeof(Config1));
+    Config1 *userdata1 = userdata;
+    
+    printf("Verbose = %d, no_fail = %d, no_reverse= %d, Command = %d, name = %s, stype = %s, domain = %s, host = %s , port = %d", userdata1->verbose, userdata1->no_fail, userdata1->no_reverse, userdata1->command, userdata1->name, userdata1->stype, userdata1->domain, userdata1->host, userdata1->port);
 
     return group;
 
@@ -218,7 +244,7 @@ printf("Enter entry group simple method call\n");
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-	//print_message(message, FALSE);
+	////print_message(message, FALSE);
 //printmessage(message);
     
 //*header = &message->header.data;
@@ -231,7 +257,7 @@ printf("Enter entry group simple method call\n");
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -344,7 +370,7 @@ printf("Enter avahi entry group is empty\n");
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -410,7 +436,7 @@ printf("Enter append string list\n");
 
     if (!dbus_message_iter_close_container(&iter, &sub))
         goto fail;
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     r = 0;
 
 fail:
@@ -495,7 +521,7 @@ printf("Enter entry group add service strlst\n");
         r = avahi_client_set_errno(client, AVAHI_ERR_DBUS_ERROR);
         goto fail;
     }
-    print_message(message, FALSE);
+    //print_message(message, FALSE);
     dbus_message_unref(message);
     dbus_message_unref(reply);
 
@@ -528,7 +554,7 @@ int avahi_entry_group_add_service(
     const char *host,
     uint16_t port,
     ...) {
-
+	printf("Entering to create AvahiString");
     va_list va;
     int r;
     AvahiStringList *txt;

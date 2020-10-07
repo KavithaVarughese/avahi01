@@ -32,6 +32,7 @@
 #include "ini-file-parser.h"
 
 AvahiIniFile* avahi_ini_file_load(const char *fname) {
+printf("ini file load\n");
     AvahiIniFile *f;
     FILE *fo;
     AvahiIniFileGroup *group = NULL;
@@ -123,6 +124,7 @@ fail:
 }
 
 void avahi_ini_file_free(AvahiIniFile *f) {
+printf("ini file free\n");
     AvahiIniFileGroup *g;
     assert(f);
 
@@ -147,6 +149,7 @@ void avahi_ini_file_free(AvahiIniFile *f) {
 }
 
 char** avahi_split_csv(const char *t) {
+printf("Enter split csv\n");
     unsigned n_comma = 0;
     const char *p;
     char **r, **i;
@@ -184,6 +187,7 @@ char** avahi_split_csv(const char *t) {
 }
 
 void avahi_strfreev(char **p) {
+printf("Enter strfreev\n");
     char **i;
 
     if (!p)

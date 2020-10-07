@@ -46,6 +46,7 @@ extern char **environ;
 #endif
 
 void avahi_init_proc_title(int argc, char **argv) {
+printf("Enter init proc title\n");
 
 #if !defined(HAVE_SETPROCTITLE) && defined(__linux__)
 
@@ -76,6 +77,7 @@ void avahi_init_proc_title(int argc, char **argv) {
 }
 
 void avahi_set_proc_title(const char *name, const char *fmt,...) {
+printf("Enter set proc title\n");
 #ifdef HAVE_SETPROCTITLE
     char t[256];
 

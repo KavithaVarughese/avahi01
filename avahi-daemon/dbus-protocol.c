@@ -67,6 +67,7 @@ static int dbus_connect(void);
 static void dbus_disconnect(void);
 
 static void client_free(Client *c) {
+printf("Enter client free\n");
 
     assert(server);
     assert(c);
@@ -115,6 +116,7 @@ static void client_free(Client *c) {
 }
 
 static Client *client_get(const char *name, int create) {
+printf("Enter client get\n");
     Client *client;
 
     assert(server);
@@ -158,6 +160,7 @@ static Client *client_get(const char *name, int create) {
 }
 
 static void reconnect_callback(AvahiTimeout *t, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter reconnect callback\n");
     assert(!server->bus);
 
     if (dbus_connect() < 0) {
@@ -172,6 +175,7 @@ static void reconnect_callback(AvahiTimeout *t, AVAHI_GCC_UNUSED void *userdata)
 }
 
 static DBusHandlerResult dbus_parsing_error(const char *txt, DBusError *error) {
+printf("Enter dbus parsing error\n");
     avahi_log_warn("%s",txt);
     if (dbus_error_is_set(error))
         dbus_error_free(error);
@@ -180,6 +184,7 @@ static DBusHandlerResult dbus_parsing_error(const char *txt, DBusError *error) {
 }
 
 static DBusHandlerResult msg_signal_filter_impl(AVAHI_GCC_UNUSED DBusConnection *c, DBusMessage *m, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter msg signal filter impl\n");
     DBusError error;
 
     dbus_error_init(&error);
@@ -244,6 +249,7 @@ static DBusHandlerResult msg_signal_filter_impl(AVAHI_GCC_UNUSED DBusConnection 
 }
 
 static DBusHandlerResult dbus_get_host_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get host name\n");
     if (!dbus_message_get_args(m, error, DBUS_TYPE_INVALID)) {
         return dbus_parsing_error("Error parsing Server::GetHostName message", error);
     }
@@ -252,6 +258,7 @@ static DBusHandlerResult dbus_get_host_name(DBusConnection *c, DBusMessage *m, D
 }
 
 static DBusHandlerResult dbus_set_host_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus set host name\n");
     char *name;
 
     if (!dbus_message_get_args(m, error, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID)) {
@@ -267,6 +274,7 @@ static DBusHandlerResult dbus_set_host_name(DBusConnection *c, DBusMessage *m, D
 }
 
 static DBusHandlerResult dbus_get_domain_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get domain name\n");
     if (!dbus_message_get_args(m, error, DBUS_TYPE_INVALID)) {
         return dbus_parsing_error("Error parsing Server::GetDomainName message", error);
     }
@@ -275,6 +283,7 @@ static DBusHandlerResult dbus_get_domain_name(DBusConnection *c, DBusMessage *m,
 }
 
 static DBusHandlerResult dbus_get_host_name_fqdn(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter get host name fqdn\n");
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
         return dbus_parsing_error("Error parsing Server::GetHostNameFqdn message", error);
     }
@@ -283,6 +292,7 @@ static DBusHandlerResult dbus_get_host_name_fqdn(DBusConnection *c, DBusMessage 
 }
 
 static DBusHandlerResult dbus_is_ns_support_available(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus is ns support available\n");
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
         return dbus_parsing_error("Error parsing Server::IsNSSSupportAvailable message", error);
     }
@@ -291,6 +301,7 @@ static DBusHandlerResult dbus_is_ns_support_available(DBusConnection *c, DBusMes
 }
 
 static DBusHandlerResult dbus_get_version_string(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get version string\n");
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
         return dbus_parsing_error("Error parsing Server::GetVersionString message", error);
     }
@@ -299,6 +310,7 @@ static DBusHandlerResult dbus_get_version_string(DBusConnection *c, DBusMessage 
 }
 
 static DBusHandlerResult dbus_get_api_version(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get api version\n");
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
         return dbus_parsing_error("Error parsing Server::GetAPIVersion message", error);
     }
@@ -307,6 +319,7 @@ static DBusHandlerResult dbus_get_api_version(DBusConnection *c, DBusMessage *m,
 }
 
 static DBusHandlerResult dbus_get_state(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get state\n");
     AvahiServerState state;
 
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
@@ -318,6 +331,7 @@ static DBusHandlerResult dbus_get_state(DBusConnection *c, DBusMessage *m, DBusE
 }
 
 static DBusHandlerResult dbus_get_local_service_cookie(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get local service cookie\n");
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_INVALID))) {
         return dbus_parsing_error("Error parsing Server::GetLocalServiceCookie message", error);
     }
@@ -326,6 +340,7 @@ static DBusHandlerResult dbus_get_local_service_cookie(DBusConnection *c, DBusMe
 }
 
 static DBusHandlerResult dbus_get_net_if_by_index(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get net if by index\n");
     int32_t idx;
     char name[IF_NAMESIZE];
 
@@ -347,6 +362,7 @@ static DBusHandlerResult dbus_get_net_if_by_index(DBusConnection *c, DBusMessage
 }
 
 static DBusHandlerResult dbus_get_net_if_by_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get net if by name \n");
     char *n;
     int32_t idx;
 
@@ -368,6 +384,7 @@ static DBusHandlerResult dbus_get_net_if_by_name(DBusConnection *c, DBusMessage 
 }
 
 static DBusHandlerResult dbus_get_alternative_host_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get alternative host name\n");
     char *n, * t;
 
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_STRING, &n, DBUS_TYPE_INVALID)) || !n) {
@@ -382,6 +399,7 @@ static DBusHandlerResult dbus_get_alternative_host_name(DBusConnection *c, DBusM
 }
 
 static DBusHandlerResult dbus_get_alternative_service_name(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus get alternative service name\n");
     char *n, *t;
 
     if (!(dbus_message_get_args(m, error, DBUS_TYPE_STRING, &n, DBUS_TYPE_INVALID)) || !n) {
@@ -396,6 +414,7 @@ static DBusHandlerResult dbus_get_alternative_service_name(DBusConnection *c, DB
 }
 
 static DBusHandlerResult dbus_create_new_entry_group(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus create new entry group\n");
     Client *client;
     EntryGroupInfo *i;
     static const DBusObjectPathVTable vtable = {
@@ -443,6 +462,7 @@ static DBusHandlerResult dbus_create_new_entry_group(DBusConnection *c, DBusMess
 }
 
 static DBusHandlerResult dbus_prepare_domain_browser_object(DomainBrowserInfo **dbi, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare domain browser object\n");
     Client *client;
     DomainBrowserInfo *i;
     static const DBusObjectPathVTable vtable = {
@@ -502,6 +522,7 @@ static DBusHandlerResult dbus_prepare_domain_browser_object(DomainBrowserInfo **
 
 
 static DBusHandlerResult dbus_prepare_service_type_browser_object(ServiceTypeBrowserInfo **stbi, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare service type browser object\n");
     Client *client;
     ServiceTypeBrowserInfo *i;
     static const DBusObjectPathVTable vtable = {
@@ -560,6 +581,7 @@ static DBusHandlerResult dbus_prepare_service_type_browser_object(ServiceTypeBro
 
 
 static DBusHandlerResult dbus_prepare_service_browser_object(ServiceBrowserInfo **sbi, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare service browser object\n");
     Client *client;
     ServiceBrowserInfo *i;
     static const DBusObjectPathVTable vtable = {
@@ -618,6 +640,7 @@ static DBusHandlerResult dbus_prepare_service_browser_object(ServiceBrowserInfo 
 }
 
 static DBusHandlerResult dbus_create_sync_service_resolver_object(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus create sync service resolver object\n");
     Client *client;
     int32_t interface, protocol, aprotocol;
     uint32_t flags;
@@ -668,6 +691,7 @@ static DBusHandlerResult dbus_create_sync_service_resolver_object(DBusConnection
 }
 
 static DBusHandlerResult dbus_prepare_async_service_resolver_object(AsyncServiceResolverInfo **sri, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare async service resolver object\n");
     Client *client;
     int32_t interface, protocol, aprotocol;
     uint32_t flags;
@@ -733,6 +757,7 @@ static DBusHandlerResult dbus_prepare_async_service_resolver_object(AsyncService
 }
 
 static DBusHandlerResult dbus_create_sync_host_name_resolver_object(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus create sync host name resolver object\n");
     Client *client;
     int32_t interface, protocol, aprotocol;
     uint32_t flags;
@@ -775,6 +800,7 @@ static DBusHandlerResult dbus_create_sync_host_name_resolver_object(DBusConnecti
 }
 
 static DBusHandlerResult dbus_prepare_async_host_name_resolver_object(AsyncHostNameResolverInfo **hri, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare async host name resolver object\n");
     Client *client;
     int32_t interface, protocol, aprotocol;
     uint32_t flags;
@@ -830,6 +856,7 @@ static DBusHandlerResult dbus_prepare_async_host_name_resolver_object(AsyncHostN
 }
 
 static DBusHandlerResult dbus_create_sync_address_resolver_object(DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus create sync address resolver object\n");
     Client *client;
     int32_t interface, protocol;
     uint32_t flags;
@@ -875,6 +902,7 @@ static DBusHandlerResult dbus_create_sync_address_resolver_object(DBusConnection
 }
 
 static DBusHandlerResult dbus_prepare_async_address_resolver_object(AsyncAddressResolverInfo **ari, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare async address resolver object\n");
     Client *client;
     int32_t interface, protocol;
     uint32_t flags;
@@ -933,6 +961,7 @@ static DBusHandlerResult dbus_prepare_async_address_resolver_object(AsyncAddress
 }
 
 static DBusHandlerResult dbus_prepare_record_browser_object(RecordBrowserInfo **rbi, DBusConnection *c, DBusMessage *m, DBusError *error) {
+printf("Enter dbus prepare record browser object\n");
     Client *client;
     RecordBrowserInfo *i;
     static const DBusObjectPathVTable vtable = {
@@ -1000,6 +1029,7 @@ static DBusHandlerResult dbus_prepare_record_browser_object(RecordBrowserInfo **
 }
 
 static DBusHandlerResult dbus_select_common_methods(DBusConnection *c, DBusMessage *m, AVAHI_GCC_UNUSED void *userdata, const char *iface, DBusError *error) {
+printf("Enter dbus select common methods\n");
     if (dbus_message_is_method_call(m, DBUS_INTERFACE_INTROSPECTABLE, "Introspect"))
         return avahi_dbus_handle_introspect(c, m, "org.freedesktop.Avahi.Server.xml");
 
@@ -1067,6 +1097,7 @@ CREATE_DBUS_DELAY_FUNC(AsyncAddressResolverInfo, address_resolver, avahi_s_addre
 CREATE_DBUS_DELAY_FUNC(RecordBrowserInfo, record_browser, avahi_s_record_browser_start_query)
 
 static DBusHandlerResult dbus_select_browser(DBusConnection *c, DBusMessage *m, AVAHI_GCC_UNUSED void *userdata, const char *iface, DBusError *error) {
+printf("Enter dbus select browser\n");
     DBusHandlerResult r;
     const AvahiPoll *poll_api = NULL;
     struct timeval tv;
@@ -1128,6 +1159,7 @@ static DBusHandlerResult dbus_select_browser(DBusConnection *c, DBusMessage *m, 
 }
 
 static DBusHandlerResult dbus_select_prepare_browser(DBusConnection *c, DBusMessage *m, AVAHI_GCC_UNUSED void *userdata, const char *iface, DBusError *error) {
+printf("Enter dbus select prepare browser\n");
     DBusHandlerResult r;
 
     if (dbus_message_is_method_call(m, iface, "DomainBrowserPrepare")) {
@@ -1170,6 +1202,7 @@ static DBusHandlerResult dbus_select_prepare_browser(DBusConnection *c, DBusMess
 }
 
 static DBusHandlerResult msg_server_impl(DBusConnection *c, DBusMessage *m, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter msg server impl\n");
     DBusHandlerResult r;
     DBusError error;
 
@@ -1209,6 +1242,7 @@ static DBusHandlerResult msg_server_impl(DBusConnection *c, DBusMessage *m, AVAH
 }
 
 void dbus_protocol_server_state_changed(AvahiServerState state) {
+printf("Enter dbus protocol server state changed\n");
     DBusMessage *m;
     int32_t t;
     const char *e;
@@ -1238,6 +1272,7 @@ void dbus_protocol_server_state_changed(AvahiServerState state) {
 }
 
 static int dbus_connect(void) {
+printf("Enter dbus connect\n");
     DBusError error;
 
     static const DBusObjectPathVTable server_vtable = {
@@ -1343,6 +1378,7 @@ fail:
 }
 
 static void dbus_disconnect(void) {
+printf("Enter dbus disconnect\n");
     assert(server);
 
     while (server->clients)
@@ -1367,6 +1403,7 @@ int dbus_protocol_setup(const AvahiPoll *poll_api,
                         int _n_objects_per_client_max,
                         int _n_entries_per_entry_group_max,
                         int force) {
+printf("Enter dbus protocol setup\n");
 
 
     server = avahi_new(Server, 1);
@@ -1413,6 +1450,7 @@ fail:
 }
 
 void dbus_protocol_shutdown(void) {
+printf("Enter dbus protocol shutdown\n");
 
     if (server) {
         dbus_disconnect();

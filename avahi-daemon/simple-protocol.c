@@ -105,6 +105,7 @@ static Server *server = NULL;
 static void client_work(AvahiWatch *watch, int fd, AvahiWatchEvent events, void *userdata);
 
 static void client_free(Client *c) {
+printf("Enter client free\n");
     assert(c);
 
     assert(c->server->n_clients >= 1);
@@ -127,6 +128,7 @@ static void client_free(Client *c) {
 }
 
 static void client_new(Server *s, int fd) {
+printf("Enter client new\n");
     Client *c;
 
     assert(fd >= 0);
@@ -149,6 +151,7 @@ static void client_new(Server *s, int fd) {
 }
 
 static void client_output(Client *c, const uint8_t*data, size_t size) {
+printf("Enter client output\n");
     size_t k, m;
 
     assert(c);
@@ -167,6 +170,7 @@ static void client_output(Client *c, const uint8_t*data, size_t size) {
 }
 
 static void client_output_printf(Client *c, const char *format, ...) {
+printf("Enter client output printf\n");
     char *t;
     va_list ap;
 
@@ -179,6 +183,7 @@ static void client_output_printf(Client *c, const char *format, ...) {
 }
 
 static void host_name_resolver_callback(
+
     AVAHI_GCC_UNUSED AvahiSHostNameResolver *r,
     AvahiIfIndex iface,
     AvahiProtocol protocol,
@@ -187,7 +192,7 @@ static void host_name_resolver_callback(
     const AvahiAddress *a,
     AVAHI_GCC_UNUSED AvahiLookupResultFlags flags,
     void* userdata) {
-
+printf("Enter host name resolver callback\n");
     Client *c = userdata;
 
     assert(c);
@@ -212,7 +217,7 @@ static void address_resolver_callback(
     const char *hostname,
     AVAHI_GCC_UNUSED AvahiLookupResultFlags flags,
     void* userdata) {
-
+printf("Enter address resolver callback\n");
     Client *c = userdata;
 
     assert(c);
@@ -235,6 +240,7 @@ static void dns_server_browser_callback(
     uint16_t port,
     AVAHI_GCC_UNUSED AvahiLookupResultFlags flags,
     void* userdata) {
+printf("Enter server browser callback\n");
 
     Client *c = userdata;
     char t[AVAHI_ADDRESS_STR_MAX];
@@ -264,6 +270,7 @@ static void dns_server_browser_callback(
 }
 
 static void handle_line(Client *c, const char *s) {
+printf("Enter handle line\n");
     char cmd[64], arg[64];
     int n_args;
 
@@ -364,6 +371,7 @@ fail:
 }
 
 static void handle_input(Client *c) {
+printf("Enter handle input \n");
     assert(c);
 
     for (;;) {
@@ -383,6 +391,7 @@ static void handle_input(Client *c) {
 }
 
 static void client_work(AvahiWatch *watch, AVAHI_GCC_UNUSED int fd, AvahiWatchEvent events, void *userdata) {
+printf("Enter client work\n");
     Client *c = userdata;
 
     assert(c);
@@ -431,6 +440,7 @@ static void client_work(AvahiWatch *watch, AVAHI_GCC_UNUSED int fd, AvahiWatchEv
 }
 
 static void server_work(AVAHI_GCC_UNUSED AvahiWatch *watch, int fd, AvahiWatchEvent events, void *userdata) {
+printf("Enter server work\n");
     Server *s = userdata;
 
     assert(s);
@@ -446,6 +456,7 @@ static void server_work(AVAHI_GCC_UNUSED AvahiWatch *watch, int fd, AvahiWatchEv
 }
 
 int simple_protocol_setup(const AvahiPoll *poll_api) {
+printf("Enter simple protocol\n");
     struct sockaddr_un sa;
     mode_t u;
     int n;
@@ -528,6 +539,7 @@ fail:
 }
 
 void simple_protocol_shutdown(void) {
+printf("Enter simple protocol shutdown\n");
 
     if (server) {
 
@@ -554,6 +566,7 @@ void simple_protocol_shutdown(void) {
 }
 
 void simple_protocol_restart_queries(void) {
+printf("Enter simple protocol restart\n");
     Client *c;
 
     /* Restart queries in case of local domain name changes */

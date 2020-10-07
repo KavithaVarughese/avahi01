@@ -22,7 +22,7 @@
 #endif
 
 #include <string.h>
-
+#include <stdio.h>
 #include <avahi-common/malloc.h>
 #include <avahi-common/dbus.h>
 #include <avahi-common/error.h>
@@ -34,6 +34,7 @@
 #include "main.h"
 
 void avahi_dbus_entry_group_free(EntryGroupInfo *i) {
+printf("Enter dbus entry group\n");
     assert(i);
 
     if (i->entry_group)
@@ -52,6 +53,7 @@ void avahi_dbus_entry_group_free(EntryGroupInfo *i) {
 }
 
 void avahi_dbus_entry_group_callback(AvahiServer *s, AvahiSEntryGroup *g, AvahiEntryGroupState state, void* userdata) {
+printf("Enter dbus entry group callback\n");
     EntryGroupInfo *i = userdata;
     DBusMessage *m;
     int32_t t;
@@ -87,6 +89,7 @@ void avahi_dbus_entry_group_callback(AvahiServer *s, AvahiSEntryGroup *g, AvahiE
 }
 
 DBusHandlerResult avahi_dbus_msg_entry_group_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
+printf("Enter dbus msg entry group impl\n");
     DBusError error;
     EntryGroupInfo *i = userdata;
 

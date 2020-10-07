@@ -22,7 +22,7 @@
 #endif
 
 #include <string.h>
-
+#include <stdio.h>
 #include <avahi-common/malloc.h>
 #include <avahi-common/dbus.h>
 #include <avahi-common/error.h>
@@ -33,6 +33,7 @@
 #include "main.h"
 
 void avahi_dbus_service_browser_free(ServiceBrowserInfo *i) {
+printf("Enter dbus service browser free\n");
     const AvahiPoll *poll_api = NULL;
 
     assert(i);
@@ -59,6 +60,7 @@ void avahi_dbus_service_browser_free(ServiceBrowserInfo *i) {
 }
 
 void avahi_dbus_service_browser_start(ServiceBrowserInfo *i) {
+printf("Enter dbus service browser start\n");
     assert(i);
 
     if(i->service_browser)
@@ -66,6 +68,7 @@ void avahi_dbus_service_browser_start(ServiceBrowserInfo *i) {
 }
 
 DBusHandlerResult avahi_dbus_msg_service_browser_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
+printf("Enter dbus msg service browser impl\n");
     DBusError error;
     ServiceBrowserInfo *i = userdata;
 
@@ -122,6 +125,7 @@ fail:
 }
 
 void avahi_dbus_service_browser_callback(AvahiSServiceBrowser *b, AvahiIfIndex interface, AvahiProtocol protocol, AvahiBrowserEvent event, const char *name, const char *type, const char *domain, AvahiLookupResultFlags flags, void* userdata) {
+printf("Enter dbus service browser callback\n");
     ServiceBrowserInfo *i = userdata;
     DBusMessage *m;
     int32_t i_interface, i_protocol;

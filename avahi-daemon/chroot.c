@@ -1,4 +1,3 @@
-/***
   This file is part of avahi.
 
   avahi is free software; you can redistribute it and/or modify it
@@ -21,6 +20,7 @@
 #include <config.h>
 #endif
 
+#include <stdio.h>
 #include <inttypes.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -100,6 +100,7 @@ static const char *const unlink_file_name_table[AVAHI_CHROOT_MAX] = {
 static int helper_fd = -1;
 
 static int send_fd(int fd, int payload_fd) {
+printf("Enter send_fd\n");
     uint8_t dummy = AVAHI_CHROOT_SUCCESS;
     struct iovec iov;
     struct msghdr msg;
@@ -140,6 +141,7 @@ static int send_fd(int fd, int payload_fd) {
 }
 
 static int recv_fd(int fd) {
+printf("Enter recv_fd\n");
     uint8_t dummy;
     struct iovec iov;
     struct msghdr msg;
@@ -197,6 +199,7 @@ static int recv_fd(int fd) {
 }
 
 static int helper_main(int fd) {
+printf("Enter helper_main\n");
     int ret = 1;
     assert(fd >= 0);
 
@@ -290,6 +293,7 @@ fail:
 }
 
 int avahi_chroot_helper_start(const char *argv0) {
+printf("Enter chroot_helper_start\n");
     int sock[2];
     pid_t pid;
 
@@ -326,7 +330,7 @@ int avahi_chroot_helper_start(const char *argv0) {
 }
 
 void avahi_chroot_helper_shutdown(void) {
-
+printf("enter chroot_helper_shutdown\n");
     if (helper_fd <= 0)
         return;
 
@@ -335,6 +339,7 @@ void avahi_chroot_helper_shutdown(void) {
 }
 
 int avahi_chroot_helper_get_fd(const char *fname) {
+printf("Enter chroot_helper_get_fd\n");
 
     if (helper_fd >= 0) {
         uint8_t command;
@@ -365,6 +370,7 @@ int avahi_chroot_helper_get_fd(const char *fname) {
 
 
 FILE *avahi_chroot_helper_get_file(const char *fname) {
+printf("Enter chroot_helper_get_file\n");
     FILE *f;
     int fd;
 
@@ -378,7 +384,7 @@ FILE *avahi_chroot_helper_get_file(const char *fname) {
 }
 
 int avahi_chroot_helper_unlink(const char *fname) {
-
+printf("chroot_helper_unlink\n");
     if (helper_fd >= 0) {
         uint8_t c, command;
         ssize_t r;

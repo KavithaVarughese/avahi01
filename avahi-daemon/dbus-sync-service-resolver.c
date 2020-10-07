@@ -20,7 +20,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
+#include <stdio.h>
 #include <string.h>
 
 #include <avahi-common/malloc.h>
@@ -33,6 +33,7 @@
 #include "main.h"
 
 void avahi_dbus_sync_service_resolver_free(SyncServiceResolverInfo *i) {
+printf("Enter dbus sync service resolver free\n");
     assert(i);
 
     if (i->service_resolver)
@@ -47,6 +48,7 @@ void avahi_dbus_sync_service_resolver_free(SyncServiceResolverInfo *i) {
 }
 
 void avahi_dbus_sync_service_resolver_callback(
+
     AvahiSServiceResolver *r,
     AvahiIfIndex interface,
     AvahiProtocol protocol,
@@ -60,7 +62,7 @@ void avahi_dbus_sync_service_resolver_callback(
     AvahiStringList *txt,
     AvahiLookupResultFlags flags,
     void* userdata) {
-
+printf("Enter dbus sync service resolver callback\n");
     SyncServiceResolverInfo *i = userdata;
 
     assert(r);

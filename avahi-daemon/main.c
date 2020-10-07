@@ -147,6 +147,7 @@ static char **resolv_conf_search_domains = NULL;
 static DaemonConfig config;
 
 static int has_prefix(const char *s, const char *prefix) {
+printf("has prefix\n");
     size_t l;
 
     l = strlen(prefix);
@@ -155,6 +156,7 @@ static int has_prefix(const char *s, const char *prefix) {
 }
 
 static int load_resolv_conf(void) {
+printf("Enter load resolv\n");
     int ret = -1;
     FILE *f;
     int i = 0, j = 0;
@@ -237,6 +239,7 @@ finish:
 }
 
 static AvahiSEntryGroup* add_dns_servers(AvahiServer *s, AvahiSEntryGroup* g, char **l) {
+printf("Enter add dns servers\n");
     char **p;
 
     assert(s);
@@ -266,6 +269,7 @@ static AvahiSEntryGroup* add_dns_servers(AvahiServer *s, AvahiSEntryGroup* g, ch
 }
 
 static void remove_dns_server_entry_groups(void) {
+printf("Enter remove dns server entry groups\n");
 
     if (resolv_conf_entry_group)
         avahi_s_entry_group_reset(resolv_conf_entry_group);
@@ -275,6 +279,7 @@ static void remove_dns_server_entry_groups(void) {
 }
 
 static void update_wide_area_servers(void) {
+printf("Enter update wide area servers\n");
     AvahiAddress a[AVAHI_WIDE_AREA_SERVERS_MAX];
     unsigned n = 0;
     char **p;
@@ -295,6 +300,7 @@ static void update_wide_area_servers(void) {
 }
 
 static AvahiStringList *filter_duplicate_domains(AvahiStringList *l) {
+printf("Enter filter duplicate domains\n");
     AvahiStringList *e, *n, *p;
 
     if (!l)
@@ -315,6 +321,7 @@ static AvahiStringList *filter_duplicate_domains(AvahiStringList *l) {
 }
 
 static void update_browse_domains(void) {
+printf("Enter update browse domains\n");
     AvahiStringList *l;
     int n;
     char **p;
@@ -340,6 +347,7 @@ static void update_browse_domains(void) {
 }
 
 static void server_callback(AvahiServer *s, AvahiServerState state, void *userdata) {
+printf("Enter server callback\n");
     DaemonConfig *c = userdata;
 
     assert(s);
@@ -443,6 +451,7 @@ static void help(FILE *f) {
 
 
 static int parse_command_line(DaemonConfig *c, int argc, char *argv[]) {
+printf("Enter parse command line\n");
     int o;
 
     enum {
@@ -538,12 +547,14 @@ static int parse_command_line(DaemonConfig *c, int argc, char *argv[]) {
 }
 
 static int is_yes(const char *s) {
+
     assert(s);
 
     return *s == 'y' || *s == 'Y' || *s == '1' || *s == 't' || *s == 'T';
 }
 
 static int parse_unsigned(const char *s, unsigned *u) {
+printf("Enter parse unsigned\n");
     char *e = NULL;
     unsigned long ul;
     unsigned k;
@@ -564,6 +575,7 @@ static int parse_unsigned(const char *s, unsigned *u) {
 }
 
 static int parse_usec(const char *s, AvahiUsec *u) {
+printf("Enter parse unsec\n");
     char *e = NULL;
     unsigned long long ull;
     AvahiUsec k;
@@ -584,6 +596,7 @@ static int parse_usec(const char *s, AvahiUsec *u) {
 }
 
 static char *get_machine_id(void) {
+printf("Enter get machine\n");
     int fd;
     char buf[32];
 
@@ -607,6 +620,7 @@ static char *get_machine_id(void) {
 }
 
 static int load_config_file(DaemonConfig *c) {
+printf("Enter load config file\n");
     int r = -1;
     AvahiIniFile *f;
     AvahiIniFileGroup *g;
@@ -925,6 +939,7 @@ static void dump(const char *text, AVAHI_GCC_UNUSED void* userdata) {
 static int inotify_fd = -1;
 
 static void add_inotify_watches(void) {
+printf("Enter inotify watches\n");
     int c = 0;
     /* We ignore the return values, because one or more of these files
      * might not exist and we're OK with that. In addition we never
@@ -959,6 +974,7 @@ static int num_kfds = 0;
 static void add_kqueue_watch(const char *dir);
 
 static void add_kqueue_watches(void) {
+printf("Enter add kqueue watches\n");
     int c = 0;
 
 #ifdef ENABLE_CHROOT
@@ -970,6 +986,7 @@ static void add_kqueue_watches(void) {
 }
 
 static void add_kqueue_watch(const char *dir) {
+printf("Enter add kqueue watch\n");
     int fd;
     struct kevent ev;
 
@@ -996,6 +1013,7 @@ static void add_kqueue_watch(const char *dir) {
 #endif
 
 static void reload_config(void) {
+printf("Enter reload config\n");
 
 #ifdef HAVE_INOTIFY
     /* Refresh in case the config dirs have been removed */
@@ -1031,6 +1049,7 @@ static void reload_config(void) {
 #ifdef HAVE_INOTIFY
 
 static void inotify_callback(AvahiWatch *watch, int fd, AVAHI_GCC_UNUSED AvahiWatchEvent event, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter inotify callback\n");
     char* buffer;
     int n = 0;
 
@@ -1058,6 +1077,7 @@ static void inotify_callback(AvahiWatch *watch, int fd, AVAHI_GCC_UNUSED AvahiWa
 #ifdef HAVE_KQUEUE
 
 static void kqueue_callback(AvahiWatch *watch, int fd, AVAHI_GCC_UNUSED AvahiWatchEvent event, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter kqueue callback\n");
     struct kevent ev;
     struct timespec nullts = { 0, 0 };
     int res;
@@ -1081,6 +1101,7 @@ static void kqueue_callback(AvahiWatch *watch, int fd, AVAHI_GCC_UNUSED AvahiWat
 #endif
 
 static void signal_callback(AvahiWatch *watch, AVAHI_GCC_UNUSED int fd, AVAHI_GCC_UNUSED AvahiWatchEvent event, AVAHI_GCC_UNUSED void *userdata) {
+printf("Enter signal callback\n");
     int sig;
     const AvahiPoll *poll_api;
 
@@ -1135,6 +1156,7 @@ static void ignore_signal(int sig)  {
 }
 
 static int run_server(DaemonConfig *c) {
+printf("Enter RUN SERVER\n");
     int r = -1;
     int error;
     const AvahiPoll *poll_api = NULL;
@@ -1339,6 +1361,7 @@ finish:
 #define set_env(key, value) putenv(avahi_strdup_printf("%s=%s", (key), (value)))
 
 static int drop_root(void) {
+printf("Enter drop root\n");
     struct passwd *pw;
     struct group * gr;
     int r;
@@ -1406,6 +1429,7 @@ static const char* pid_file_proc(void) {
 }
 
 static int make_runtime_dir(void) {
+printf("Enter make runtime dir\n");
     int r = -1;
     mode_t u;
     int reset_umask = 0;
