@@ -121,6 +121,7 @@ static AvahiWideAreaLookup* find_lookup(AvahiWideAreaLookupEngine *e, uint16_t i
 }
 
 static int send_to_dns_server(AvahiWideAreaLookup *l, AvahiDnsPacket *p) {
+printf("Enter wide-area.c\n");
     AvahiAddress *a;
 
     assert(l);

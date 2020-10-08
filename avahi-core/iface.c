@@ -41,6 +41,7 @@
 #include "log.h"
 #include "multicast-lookup.h"
 #include "querier.h"
+//#include "avahi-client/dbus-print-message.h"
 
 void avahi_interface_address_update_rrs(AvahiInterfaceAddress *a, int remove_rrs) {
     AvahiInterfaceMonitor *m;
@@ -571,6 +572,16 @@ AvahiInterfaceAddress* avahi_interface_monitor_get_address(AvahiInterfaceMonitor
 }
 
 void avahi_interface_send_packet_unicast(AvahiInterface *i, AvahiDnsPacket *p, const AvahiAddress *a, uint16_t port) {
+printf("Enter iface.c\n");
+
+
+
+//const uint8_t *c = p;
+
+//system("echo hello >> /home/snoopsxox/Desktop/packet.txt");
+
+avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
+avahi_hexstring(AVAHI_DNS_PACKET_DATA(p), p->size);
     assert(i);
     assert(p);
 

@@ -30,6 +30,37 @@
 #include <avahi-common/malloc.h>
 #include "util.h"
 
+void * avahi_hexstring(const void* p, size_t size) {
+system("pwd");
+    FILE *fp;
+    fp = fopen("hex_packet.txt","a+");
+    const uint8_t *c = p;
+    assert(p);
+
+    while (size > 0) {
+        unsigned i;
+
+        for (i = 0; i < 16; i++) {
+            if (i < size){
+                printf("%02x", c[i]);
+                fprintf(fp,"%02x ",c[i]);
+		//system("echo hello file  >> /home/snoopsxox/Desktop/packet.txt");
+	    }
+            //else
+              //  printf("
+        }
+
+        c += 16;
+
+        if (size <= 16)
+            break;
+
+        size -= 16;
+    }
+    printf("\n");
+    fclose(fp);
+}
+
 void avahi_hexdump(const void* p, size_t size) {
     const uint8_t *c = p;
     assert(p);

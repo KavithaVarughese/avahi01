@@ -821,6 +821,7 @@ static void legacy_unicast_reflect_slot_timeout(AvahiTimeEvent *e, void *userdat
 }
 
 static void reflect_legacy_unicast_query_packet(AvahiServer *s, AvahiDnsPacket *p, AvahiInterface *i, const AvahiAddress *a, uint16_t port) {
+printf("Enter reflect_legacy_unicast_query_packet\n");
     AvahiLegacyUnicastReflectSlot *slot;
     AvahiInterface *j;
 
