@@ -23,7 +23,7 @@ AM_CFLAGS+='-DDEBUG_TRAP=__asm__("int $$3")'
 if HAVE_DBUS
 
 avahi_clientincludedir=$(includedir)/avahi-client
-avahi_clientinclude_HEADERS = client.h lookup.h publish.h dbus-print-message.h
+avahi_clientinclude_HEADERS = client.h lookup.h publish.h 
 
 noinst_HEADERS = internal.h
 
@@ -47,7 +47,6 @@ libavahi_client_la_SOURCES = \
 	resolver.c \
 	publish.h lookup.h \
 	xdg-config.c xdg-config.h \
-	dbus-print-message.c dbus-print-message.h \
 	check-nss.c \
 	../avahi-common/dbus.c ../avahi-common/dbus.h \
 	../avahi-common/dbus-watch-glue.c ../avahi-common/dbus-watch-glue.h 

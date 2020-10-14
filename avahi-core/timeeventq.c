@@ -26,9 +26,10 @@
 
 #include <avahi-common/timeval.h>
 #include <avahi-common/malloc.h>
-
+#include "rr-util.h"
 #include "timeeventq.h"
 #include "log.h"
+
 
 struct AvahiTimeEvent {
     AvahiTimeEventQueue *queue;
@@ -57,6 +58,8 @@ static int compare(const void* _a, const void* _b) {
     return avahi_timeval_compare(&a->last_run, &b->last_run);
 }
 
+
+
 static AvahiTimeEvent* time_event_queue_root(AvahiTimeEventQueue *q) {
     assert(q);
 
@@ -74,10 +77,12 @@ static void update_timeout(AvahiTimeEventQueue *q) {
 }
 
 static void expiration_event(AVAHI_GCC_UNUSED AvahiTimeout *timeout, void *userdata) {
+    //printf("\n-----Enter expiration event-----\n");
     AvahiTimeEventQueue *q = userdata;
     AvahiTimeEvent *e;
-
+	
     if ((e = time_event_queue_root(q))) {
+        
         struct timeval now;
 
         gettimeofday(&now, NULL);
@@ -94,12 +99,15 @@ static void expiration_event(AVAHI_GCC_UNUSED AvahiTimeout *timeout, void *userd
             e->callback(e, e->userdata);
 
             update_timeout(q);
+ 	    //printf("\n------Exit expiration event-----\n");
+	    
             return;
         }
     }
 
     avahi_log_debug(__FILE__": Strange, expiration_event() called, but nothing really happened.");
     update_timeout(q);
+    
 }
 
 static void fix_expiry_time(AvahiTimeEvent *e) {

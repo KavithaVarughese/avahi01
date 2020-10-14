@@ -55,6 +55,7 @@ libavahi_core_la-timeeventq.lo: timeeventq.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h ../avahi-common/gccmacro.h \
+ rr-util.h rr.h ../avahi-common/strlst.h ../avahi-common/address.h \
  timeeventq.h ../avahi-common/watch.h /usr/include/poll.h \
  /usr/include/x86_64-linux-gnu/sys/poll.h \
  /usr/include/x86_64-linux-gnu/bits/poll.h \
@@ -193,6 +194,14 @@ libavahi_core_la-timeeventq.lo: timeeventq.c /usr/include/stdc-predef.h \
 /usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
 ../avahi-common/gccmacro.h:
+
+rr-util.h:
+
+rr.h:
+
+../avahi-common/strlst.h:
+
+../avahi-common/address.h:
 
 timeeventq.h:
 

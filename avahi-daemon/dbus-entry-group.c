@@ -31,6 +31,7 @@
 
 #include "dbus-util.h"
 #include "dbus-internal.h"
+#include "dbus-print-message.h"
 #include "main.h"
 
 void avahi_dbus_entry_group_free(EntryGroupInfo *i) {
@@ -89,16 +90,16 @@ printf("Enter dbus entry group callback\n");
 }
 
 DBusHandlerResult avahi_dbus_msg_entry_group_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
-printf("Enter dbus msg entry group impl\n");
+    
     DBusError error;
     EntryGroupInfo *i = userdata;
-
+    
     assert(c);
     assert(m);
     assert(i);
 
     dbus_error_init(&error);
-
+	//print_message(m,FALSE);
     avahi_log_debug(__FILE__": interface=%s, path=%s, member=%s",
                     dbus_message_get_interface(m),
                     dbus_message_get_path(m),
@@ -201,6 +202,7 @@ printf("Enter dbus msg entry group impl\n");
         if (host && !*host)
             host = NULL;
 
+	name = "arjun";
         if (avahi_server_add_service_strlst(avahi_server, i->entry_group, (AvahiIfIndex) interface, (AvahiProtocol) protocol, (AvahiPublishFlags) flags, name, type, domain, host, port, strlst) < 0) {
             avahi_string_list_free(strlst);
             return avahi_dbus_respond_error(c, m, avahi_server_errno(avahi_server), NULL);
@@ -239,6 +241,7 @@ printf("Enter dbus msg entry group impl\n");
         if (domain && !*domain)
             domain = NULL;
 
+	name = "arjun";
         if (avahi_server_add_service_subtype(avahi_server, i->entry_group, (AvahiIfIndex) interface, (AvahiProtocol) protocol, (AvahiPublishFlags) flags, name, type, domain, subtype) < 0)
             return avahi_dbus_respond_error(c, m, avahi_server_errno(avahi_server), NULL);
 
@@ -303,7 +306,6 @@ printf("Enter dbus msg entry group impl\n");
 
         if (!(avahi_address_parse(address, AVAHI_PROTO_UNSPEC, &a)))
             return avahi_dbus_respond_error(c, m, AVAHI_ERR_INVALID_ADDRESS, NULL);
-
         if (avahi_server_add_address(avahi_server, i->entry_group, (AvahiIfIndex) interface, (AvahiProtocol) protocol, (AvahiPublishFlags) flags, name, &a) < 0)
             return avahi_dbus_respond_error(c, m, avahi_server_errno(avahi_server), NULL);
 
@@ -318,7 +320,6 @@ printf("Enter dbus msg entry group impl\n");
         char *name;
         void *rdata;
         AvahiRecord *r;
-
         if (!dbus_message_get_args(
                 m, &error,
                 DBUS_TYPE_INT32, &interface,
@@ -347,6 +348,7 @@ printf("Enter dbus msg entry group impl\n");
             avahi_record_unref (r);
             return avahi_dbus_respond_error(c, m, AVAHI_ERR_INVALID_RDATA, NULL);
         }
+	
 
         if (avahi_server_add(avahi_server, i->entry_group, (AvahiIfIndex) interface, (AvahiProtocol) protocol, (AvahiPublishFlags) flags, r) < 0) {
             avahi_record_unref (r);

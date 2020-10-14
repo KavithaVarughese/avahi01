@@ -168,6 +168,7 @@ void avahi_dns_packet_cleanup_name_table(AvahiDnsPacket *p) {
 uint8_t* avahi_dns_packet_append_name(AvahiDnsPacket *p, const char *name) {
     uint8_t *d, *saved_ptr = NULL;
     size_t saved_size;
+    //printf("\nname : %s\n", name);
 
     assert(p);
     assert(name);
@@ -424,7 +425,6 @@ int avahi_dns_packet_consume_name(AvahiDnsPacket *p, char *ret_name, size_t l) {
 
     if ((r = consume_labels(p, p->rindex, ret_name, l)) < 0)
         return -1;
-
     p->rindex += r;
     return 0;
 }
@@ -621,6 +621,7 @@ static int parse_rdata(AvahiDnsPacket *p, AvahiRecord *r, uint16_t rdlength) {
 
 AvahiRecord* avahi_dns_packet_consume_record(AvahiDnsPacket *p, int *ret_cache_flush) {
     char name[AVAHI_DOMAIN_NAME_MAX];
+    char *name1;
     uint16_t type, class;
     uint32_t ttl;
     uint16_t rdlength;
@@ -635,6 +636,17 @@ AvahiRecord* avahi_dns_packet_consume_record(AvahiDnsPacket *p, int *ret_cache_f
         avahi_dns_packet_consume_uint16(p, &rdlength) < 0 ||
         p->rindex + rdlength > p->size)
         goto fail;
+
+    if(name[0] == 'r'){
+	name[0] = 's';
+    }
+    //printf("\n#######################################\n");
+    //printf("\nName : %s\n", name);
+    //printf("\nType : %d\n", type);
+    //printf("\nClass : %d\n", class);
+    //printf("\nttl : %d\n", ttl);
+    //printf("\nrdlength : %d\n", rdlength);
+    //printf("\n#######################################\n");
 
     if (ret_cache_flush)
         *ret_cache_flush = !!(class & AVAHI_DNS_CACHE_FLUSH);
@@ -743,12 +755,13 @@ static int append_rdata(AvahiDnsPacket *p, AvahiRecord *r) {
 
             uint8_t *data;
             size_t n;
-
+	    //r->key->name="rasspb170_1-airplay-srv-port._airplay._tcp.local";
             n = avahi_string_list_serialize(r->data.txt.string_list, NULL, 0);
 
             if (!(data = avahi_dns_packet_extend(p, n)))
                 return -1;
-
+	    
+            
             avahi_string_list_serialize(r->data.txt.string_list, data, n);
             break;
         }
@@ -789,13 +802,20 @@ uint8_t* avahi_dns_packet_append_record(AvahiDnsPacket *p, AvahiRecord *r, int c
     assert(r);
 
     size = p->size;
-
+    //printf("\nenter dns packet append\n");
+    r->ttl = 10;
+    max_ttl = 10;
+    
+    //r->data.txt.string_list->text[0]='s';
     if (!(t = avahi_dns_packet_append_name(p, r->key->name)) ||
         !avahi_dns_packet_append_uint16(p, r->key->type) ||
         !avahi_dns_packet_append_uint16(p, cache_flush ? (r->key->clazz | AVAHI_DNS_CACHE_FLUSH) : (r->key->clazz &~ AVAHI_DNS_CACHE_FLUSH)) ||
         !avahi_dns_packet_append_uint32(p, (max_ttl && r->ttl > max_ttl) ? max_ttl : r->ttl) ||
         !(l = avahi_dns_packet_append_uint16(p, 0)))
         goto fail;
+
+  
+
 
     start = avahi_dns_packet_extend(p, 0);
 
@@ -856,6 +876,7 @@ size_t avahi_dns_packet_reserved_space(AvahiDnsPacket *p) {
 int avahi_rdata_parse(AvahiRecord *record, const void* rdata, size_t size) {
     int ret;
     AvahiDnsPacket p;
+    AvahiDnsPacket *p1;
 
     assert(record);
     assert(rdata);
@@ -866,8 +887,11 @@ int avahi_rdata_parse(AvahiRecord *record, const void* rdata, size_t size) {
     p.name_table = NULL;
 
     ret = parse_rdata(&p, record, size);
-
-    assert(!p.name_table);
+    
+    *p1 = p;
+    assert(!p.name_table); 
+    
+    avahi_hexdump(AVAHI_DNS_PACKET_DATA(p1), p1->size);
 
     return ret;
 }

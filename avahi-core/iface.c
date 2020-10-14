@@ -572,7 +572,7 @@ AvahiInterfaceAddress* avahi_interface_monitor_get_address(AvahiInterfaceMonitor
 }
 
 void avahi_interface_send_packet_unicast(AvahiInterface *i, AvahiDnsPacket *p, const AvahiAddress *a, uint16_t port) {
-printf("Enter iface.c\n");
+//printf("Enter iface.c\n");
 
 
 
@@ -580,8 +580,7 @@ printf("Enter iface.c\n");
 
 //system("echo hello >> /home/snoopsxox/Desktop/packet.txt");
 
-avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
-avahi_hexstring(AVAHI_DNS_PACKET_DATA(p), p->size);
+
     assert(i);
     assert(p);
 
@@ -620,7 +619,7 @@ avahi_hexstring(AVAHI_DNS_PACKET_DATA(p), p->size);
 void avahi_interface_send_packet(AvahiInterface *i, AvahiDnsPacket *p) {
     assert(i);
     assert(p);
-
+    printf("\ninterface send packet\n");
     avahi_interface_send_packet_unicast(i, p, NULL, 0);
 }
 
@@ -640,12 +639,12 @@ int avahi_interface_withraw_query(AvahiInterface *i, unsigned id) {
 }
 
 int avahi_interface_post_response(AvahiInterface *i, AvahiRecord *record, int flush_cache, const AvahiAddress *querier, int immediately) {
+printf("\n***********Enter post response**************\n");
     assert(i);
     assert(record);
 
     if (!i->announcing)
         return 0;
-
     return avahi_response_scheduler_post(i->response_scheduler, record, flush_cache, querier, immediately);
 }
 

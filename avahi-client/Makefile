@@ -181,9 +181,8 @@ libavahi_client_la_DEPENDENCIES =  \
 	$(am__DEPENDENCIES_1)
 am__libavahi_client_la_SOURCES_DIST = client.c client.h entrygroup.c \
 	browser.c resolver.c publish.h lookup.h xdg-config.c \
-	xdg-config.h dbus-print-message.c dbus-print-message.h \
-	check-nss.c ../avahi-common/dbus.c ../avahi-common/dbus.h \
-	../avahi-common/dbus-watch-glue.c \
+	xdg-config.h check-nss.c ../avahi-common/dbus.c \
+	../avahi-common/dbus.h ../avahi-common/dbus-watch-glue.c \
 	../avahi-common/dbus-watch-glue.h
 am_libavahi_client_la_OBJECTS =  \
 	libavahi_client_la-client.lo \
@@ -191,7 +190,6 @@ am_libavahi_client_la_OBJECTS =  \
 	libavahi_client_la-browser.lo \
 	libavahi_client_la-resolver.lo \
 	libavahi_client_la-xdg-config.lo \
-	libavahi_client_la-dbus-print-message.lo \
 	libavahi_client_la-check-nss.lo \
 	libavahi_client_la-dbus.lo \
 	libavahi_client_la-dbus-watch-glue.lo
@@ -300,8 +298,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-am__avahi_clientinclude_HEADERS_DIST = client.h lookup.h publish.h \
-	dbus-print-message.h
+am__avahi_clientinclude_HEADERS_DIST = client.h lookup.h publish.h
 am__noinst_HEADERS_DIST = internal.h
 HEADERS = $(avahi_clientinclude_HEADERS) $(noinst_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
@@ -579,7 +576,7 @@ top_srcdir = ..
 # This cool debug trap works on i386/gcc only
 AM_CFLAGS = -I$(top_srcdir) '-DDEBUG_TRAP=__asm__("int $$3")'
 avahi_clientincludedir = $(includedir)/avahi-client
-avahi_clientinclude_HEADERS = client.h lookup.h publish.h dbus-print-message.h
+avahi_clientinclude_HEADERS = client.h lookup.h publish.h 
 noinst_HEADERS = internal.h
 lib_LTLIBRARIES = libavahi-client.la
 libavahi_client_la_SOURCES = \
@@ -589,7 +586,6 @@ libavahi_client_la_SOURCES = \
 	resolver.c \
 	publish.h lookup.h \
 	xdg-config.c xdg-config.h \
-	dbus-print-message.c dbus-print-message.h \
 	check-nss.c \
 	../avahi-common/dbus.c ../avahi-common/dbus.h \
 	../avahi-common/dbus-watch-glue.c ../avahi-common/dbus-watch-glue.h 
@@ -727,7 +723,6 @@ include ./$(DEPDIR)/client_test-client-test.Po
 include ./$(DEPDIR)/libavahi_client_la-browser.Plo
 include ./$(DEPDIR)/libavahi_client_la-check-nss.Plo
 include ./$(DEPDIR)/libavahi_client_la-client.Plo
-include ./$(DEPDIR)/libavahi_client_la-dbus-print-message.Plo
 include ./$(DEPDIR)/libavahi_client_la-dbus-watch-glue.Plo
 include ./$(DEPDIR)/libavahi_client_la-dbus.Plo
 include ./$(DEPDIR)/libavahi_client_la-entrygroup.Plo
@@ -793,13 +788,6 @@ libavahi_client_la-xdg-config.lo: xdg-config.c
 #	$(AM_V_CC)source='xdg-config.c' object='libavahi_client_la-xdg-config.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libavahi_client_la_CFLAGS) $(CFLAGS) -c -o libavahi_client_la-xdg-config.lo `test -f 'xdg-config.c' || echo '$(srcdir)/'`xdg-config.c
-
-libavahi_client_la-dbus-print-message.lo: dbus-print-message.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libavahi_client_la_CFLAGS) $(CFLAGS) -MT libavahi_client_la-dbus-print-message.lo -MD -MP -MF $(DEPDIR)/libavahi_client_la-dbus-print-message.Tpo -c -o libavahi_client_la-dbus-print-message.lo `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libavahi_client_la-dbus-print-message.Tpo $(DEPDIR)/libavahi_client_la-dbus-print-message.Plo
-#	$(AM_V_CC)source='dbus-print-message.c' object='libavahi_client_la-dbus-print-message.lo' libtool=yes \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libavahi_client_la_CFLAGS) $(CFLAGS) -c -o libavahi_client_la-dbus-print-message.lo `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
 
 libavahi_client_la-check-nss.lo: check-nss.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libavahi_client_la_CFLAGS) $(CFLAGS) -MT libavahi_client_la-check-nss.lo -MD -MP -MF $(DEPDIR)/libavahi_client_la-check-nss.Tpo -c -o libavahi_client_la-check-nss.lo `test -f 'check-nss.c' || echo '$(srcdir)/'`check-nss.c

@@ -86,7 +86,7 @@ libavahi_core_la-query-sched.lo: query-sched.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
  /usr/include/asm-generic/posix_types.h /usr/include/linux/socket.h \
  /usr/include/linux/rtnetlink.h /usr/include/linux/if_link.h \
- /usr/include/linux/if_addr.h /usr/include/linux/neighbour.h log.h
+ /usr/include/linux/if_addr.h /usr/include/linux/neighbour.h log.h util.h
 
 /usr/include/stdc-predef.h:
 
@@ -353,3 +353,5 @@ netlink.h:
 /usr/include/linux/neighbour.h:
 
 log.h:
+
+util.h:

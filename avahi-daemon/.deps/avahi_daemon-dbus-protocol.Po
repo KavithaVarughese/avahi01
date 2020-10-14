@@ -145,7 +145,8 @@ avahi_daemon-dbus-protocol.o: dbus-protocol.c /usr/include/stdc-predef.h \
  ../avahi-core/log.h ../avahi-core/core.h ../avahi-common/address.h \
  ../avahi-common/defs.h ../avahi-core/rr.h ../avahi-common/strlst.h \
  ../avahi-core/lookup.h ../avahi-core/publish.h dbus-protocol.h \
- dbus-util.h dbus-internal.h main.h ../avahi-common/simple-watch.h
+ dbus-util.h dbus-internal.h dbus-print-message.h main.h \
+ ../avahi-common/simple-watch.h
 
 /usr/include/stdc-predef.h:
 
@@ -514,6 +515,8 @@ dbus-protocol.h:
 dbus-util.h:
 
 dbus-internal.h:
+
+dbus-print-message.h:
 
 main.h:
 

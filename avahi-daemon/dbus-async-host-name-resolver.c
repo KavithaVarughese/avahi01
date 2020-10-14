@@ -33,7 +33,6 @@
 #include "main.h"
 
 void avahi_dbus_async_host_name_resolver_free(AsyncHostNameResolverInfo *i) {
-printf("Enter dbus_async_host_name_resolver_free\n");
     const AvahiPoll *poll_api = NULL;
 
     assert(i);
@@ -59,7 +58,6 @@ printf("Enter dbus_async_host_name_resolver_free\n");
 }
 
 void avahi_dbus_async_host_name_resolver_start(AsyncHostNameResolverInfo *i) {
-printf("Enter dbus_async_host_name_resolver_start\n");
     assert(i);
 
     if(i->host_name_resolver)
@@ -114,7 +112,6 @@ void avahi_dbus_async_host_name_resolver_callback(AvahiSHostNameResolver *r, Ava
 }
 
 DBusHandlerResult avahi_dbus_msg_async_host_name_resolver_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
-printf("Enter dbus_msg_async_host_name_resolver_impl\n");
     DBusError error;
     AsyncHostNameResolverInfo *i = userdata;
 

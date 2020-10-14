@@ -35,7 +35,6 @@
 void avahi_dbus_async_service_resolver_free(AsyncServiceResolverInfo *i) {
 
     const AvahiPoll *poll_api = NULL;
-    printf(" Enter dbus async servicer resolver free >> printlog.txt");
     assert(i);
 
     poll_api = avahi_simple_poll_get(simple_poll_api);
@@ -60,7 +59,6 @@ void avahi_dbus_async_service_resolver_free(AsyncServiceResolverInfo *i) {
 }
 
 void avahi_dbus_async_service_resolver_start(AsyncServiceResolverInfo *i) {
-printf(" Enter dbus async service resolver start >> printlog.txt");
     assert(i);
 
     if(i->service_resolver)
@@ -82,7 +80,6 @@ void avahi_dbus_async_service_resolver_callback(
     AvahiStringList *txt,
     AvahiLookupResultFlags flags,
     void* userdata) {
-printf(" Enter dbus async service resolver callback >> printlog.txt");
     AsyncServiceResolverInfo *i = userdata;
     DBusMessage *reply;
 
@@ -156,7 +153,6 @@ printf(" Enter dbus async service resolver callback >> printlog.txt");
 }
 
 DBusHandlerResult avahi_dbus_msg_async_service_resolver_impl(DBusConnection *c, DBusMessage *m, void *userdata) {
-printf(" Enter dbus msg async service resolver impl >> printlog.txt");
     DBusError error;
     AsyncServiceResolverInfo *i = userdata;
 

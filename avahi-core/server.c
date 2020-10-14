@@ -106,7 +106,7 @@ void avahi_server_prepare_response(AvahiServer *s, AvahiInterface *i, AvahiEntry
     assert(s);
     assert(i);
     assert(e);
-
+    //printf("\n+++++++++\n%s\n++++++++++\n",avahi_record_to_string(e->record));
     avahi_record_list_push(s->record_list, e->record, e->flags & AVAHI_PUBLISH_UNIQUE, unicast_response, auxiliary);
 }
 
@@ -250,7 +250,8 @@ static int handle_conflict(AvahiServer *s, AvahiInterface *i, AvahiRecord *recor
 
     for (e = avahi_hashmap_lookup(s->entries_by_key, record->key); e; e = n) {
         n = e->by_key_next;
-
+	//printf("\n+++++++rec start+++++++++++\n%s\n",avahi_record_to_string(e->record));
+	//printf("\n%s\n++++++rec end++++++++++++++++++\n",avahi_record_to_string(record));
         if (e->dead)
             continue;
 
@@ -316,13 +317,14 @@ static int handle_conflict(AvahiServer *s, AvahiInterface *i, AvahiRecord *recor
                 withdraw_immediately = 1;
             }
         }
+    
     }
 
     if (!ours && conflict) {
         char *t;
 
         valid = 0;
-
+	
         t = avahi_record_to_string(record);
 
         if (withdraw_immediately) {
@@ -339,7 +341,6 @@ static int handle_conflict(AvahiServer *s, AvahiInterface *i, AvahiRecord *recor
 
         avahi_free(t);
     }
-
     return valid;
 }
 
@@ -361,7 +362,7 @@ static void append_aux_records_to_list(AvahiServer *s, AvahiInterface *i, AvahiR
 }
 
 void avahi_server_generate_response(AvahiServer *s, AvahiInterface *i, AvahiDnsPacket *p, const AvahiAddress *a, uint16_t port, int legacy_unicast, int immediately) {
-
+    printf("\n_______________Enter server generate response__________________\n");
     assert(s);
     assert(i);
     assert(!legacy_unicast || (a && port > 0 && p));
@@ -404,6 +405,7 @@ void avahi_server_generate_response(AvahiServer *s, AvahiInterface *i, AvahiDnsP
         int tc = p && !!(avahi_dns_packet_get_field(p, AVAHI_DNS_FIELD_FLAGS) & AVAHI_DNS_FLAG_TC);
 
         while ((r = avahi_record_list_next(s->record_list, &flush_cache, &unicast_response, &auxiliary))) {
+	    //printf("\n------------\n%s\n------------\n",avahi_record_to_string(r));
 
             int im = immediately;
 
@@ -482,7 +484,7 @@ void avahi_server_generate_response(AvahiServer *s, AvahiInterface *i, AvahiDnsP
                     reply = NULL;
                 }
             }
-
+	    //avahi_hexdump(AVAHI_DNS_PACKET_DATA(reply), reply->size);
             avahi_record_unref(r);
         }
 
@@ -494,6 +496,7 @@ void avahi_server_generate_response(AvahiServer *s, AvahiInterface *i, AvahiDnsP
     }
 
     avahi_record_list_flush(s->record_list);
+    printf("\n________________Exit server generate response__________________\n");
 }
 
 static void reflect_response(AvahiServer *s, AvahiInterface *i, AvahiRecord *r, int flush_cache) {
@@ -672,9 +675,12 @@ static void handle_response_packet(AvahiServer *s, AvahiDnsPacket *p, AvahiInter
             avahi_log_debug(__FILE__": Packet too short or invalid while reading response record. (Maybe a UTF-8 problem?)");
             break;
         }
+	
+	//printf("\n------------\n%s\n------------\n",avahi_record_to_string(record));
 
         if (!avahi_key_is_pattern(record->key)) {
             /* Filter services that will be cached. Allow all local services */
+	     
             if (!from_local_iface && s->config.enable_reflector && s->config.reflect_filters != NULL) {
                AvahiStringList *l;
                int match = 0;
@@ -721,6 +727,7 @@ static void handle_response_packet(AvahiServer *s, AvahiDnsPacket *p, AvahiInter
                 }
                 avahi_response_scheduler_incoming(i->response_scheduler, record, cache_flush);
             }
+	    
         }
 
     unref:
@@ -1065,6 +1072,25 @@ static void dispatch_legacy_unicast_packet(AvahiServer *s, AvahiDnsPacket *p) {
     avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_ID, slot->id);
 }
 
+void print_ip_dest4(unsigned int ip)
+{
+    unsigned char bytes[4];
+    bytes[0] = ip & 0xFF;
+    bytes[1] = (ip >> 8) & 0xFF;
+    bytes[2] = (ip >> 16) & 0xFF;
+    bytes[3] = (ip >> 24) & 0xFF;   
+    printf("\n=====DEST4===\n%d.%d.%d.%d\n", bytes[0], bytes[1], bytes[2], bytes[3]);        
+}
+void print_ip_src4(unsigned int ip)
+{
+    unsigned char bytes[4];
+    bytes[0] = ip & 0xFF;
+    bytes[1] = (ip >> 8) & 0xFF;
+    bytes[2] = (ip >> 16) & 0xFF;
+    bytes[3] = (ip >> 24) & 0xFF;   
+    printf("\n=====SRC4====\n%d.%d.%d.%d\n", bytes[0], bytes[1], bytes[2], bytes[3]);        
+}
+
 static void mcast_socket_event(AvahiWatch *w, int fd, AvahiWatchEvent events, void *userdata) {
     AvahiServer *s = userdata;
     AvahiAddress dest, src;
@@ -1080,10 +1106,16 @@ static void mcast_socket_event(AvahiWatch *w, int fd, AvahiWatchEvent events, vo
     if (fd == s->fd_ipv4) {
         dest.proto = src.proto = AVAHI_PROTO_INET;
         p = avahi_recv_dns_packet_ipv4(s->fd_ipv4, &src.data.ipv4, &port, &dest.data.ipv4, &iface, &ttl);
+	print_ip_src4(src.data.ipv4.address);
+        print_ip_dest4(dest.data.ipv4.address);
+	printf("\n######port####### %d #####\n", port);
     } else {
         assert(fd == s->fd_ipv6);
         dest.proto = src.proto = AVAHI_PROTO_INET6;
         p = avahi_recv_dns_packet_ipv6(s->fd_ipv6, &src.data.ipv6, &port, &dest.data.ipv6, &iface, &ttl);
+	printf("\n=====DEST6===\n%d\n", src.data.ipv6.address[0]);
+        printf("\n=====SRC6====\n%d\n", dest.data.ipv6.address[0]);
+	printf("\n######port####### %d #####\n", port);
     }
 
     if (p) {
@@ -1432,6 +1464,7 @@ AvahiServer *avahi_server_new(const AvahiPoll *poll_api, const AvahiServerConfig
     else
         avahi_server_config_init(&s->config);
 
+ 
     if ((e = setup_sockets(s)) < 0) {
         if (error)
             *error = e;
@@ -1476,13 +1509,19 @@ AvahiServer *avahi_server_new(const AvahiPoll *poll_api, const AvahiServerConfig
 
     s->record_list = avahi_record_list_new();
 
+
     /* Get host name */
+    
+    //s->config.domain_name = "pocal";
+    //s->config.host_name = "snoopsxox-VirtualBot";
     s->host_name = s->config.host_name ? avahi_normalize_name_strdup(s->config.host_name) : avahi_get_host_name_strdup();
     s->host_name[strcspn(s->host_name, ".")] = 0;
     s->domain_name = s->config.domain_name ? avahi_normalize_name_strdup(s->config.domain_name) : avahi_strdup("local");
     s->host_name_fqdn = NULL;
     update_fqdn(s);
 
+    printf("\n*********DOMAIN = %s **********\n",s->config.domain_name);
+    printf("\n*********HOST = %s **********\n",s->config.host_name);
     do {
         s->local_service_cookie = (uint32_t) rand() * (uint32_t) rand();
     } while (s->local_service_cookie == AVAHI_SERVICE_COOKIE_INVALID);

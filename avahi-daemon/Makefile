@@ -187,9 +187,10 @@ am__avahi_daemon_SOURCES_DIST = main.c main.h simple-protocol.c \
 	simple-protocol.h static-services.c static-services.h \
 	static-hosts.c static-hosts.h ini-file-parser.c \
 	ini-file-parser.h setproctitle.c setproctitle.h sd-daemon.h \
-	sd-daemon.c ../avahi-client/check-nss.c chroot.c chroot.h \
-	caps.c caps.h dbus-protocol.c dbus-protocol.h dbus-util.c \
-	dbus-util.h dbus-internal.h dbus-async-address-resolver.c \
+	sd-daemon.c dbus-print-message.c dbus-print-message.h \
+	../avahi-client/check-nss.c chroot.c chroot.h caps.c caps.h \
+	dbus-protocol.c dbus-protocol.h dbus-util.c dbus-util.h \
+	dbus-internal.h dbus-async-address-resolver.c \
 	dbus-async-host-name-resolver.c dbus-async-service-resolver.c \
 	dbus-domain-browser.c dbus-entry-group.c \
 	dbus-service-browser.c dbus-service-type-browser.c \
@@ -222,6 +223,7 @@ am_avahi_daemon_OBJECTS = avahi_daemon-main.$(OBJEXT) \
 	avahi_daemon-ini-file-parser.$(OBJEXT) \
 	avahi_daemon-setproctitle.$(OBJEXT) \
 	avahi_daemon-sd-daemon.$(OBJEXT) \
+	avahi_daemon-dbus-print-message.$(OBJEXT) \
 	avahi_daemon-check-nss.$(OBJEXT) \
 	$(am__objects_1) \
 	$(am__objects_2)
@@ -631,6 +633,8 @@ avahi_daemon_SOURCES = main.c \
 	setproctitle.c \
 	setproctitle.h sd-daemon.h \
 	sd-daemon.c \
+	dbus-print-message.c \
+	dbus-print-message.h \
 	../avahi-client/check-nss.c \
 	$(am__append_2) \
 	$(am__append_5)
@@ -811,6 +815,7 @@ include ./$(DEPDIR)/avahi_daemon-dbus-async-host-name-resolver.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-async-service-resolver.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-domain-browser.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-entry-group.Po
+include ./$(DEPDIR)/avahi_daemon-dbus-print-message.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-protocol.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-record-browser.Po
 include ./$(DEPDIR)/avahi_daemon-dbus-service-browser.Po
@@ -949,6 +954,20 @@ avahi_daemon-sd-daemon.obj: sd-daemon.c
 #	$(AM_V_CC)source='sd-daemon.c' object='avahi_daemon-sd-daemon.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-sd-daemon.obj `if test -f 'sd-daemon.c'; then $(CYGPATH_W) 'sd-daemon.c'; else $(CYGPATH_W) '$(srcdir)/sd-daemon.c'; fi`
+
+avahi_daemon-dbus-print-message.o: dbus-print-message.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-dbus-print-message.o -MD -MP -MF $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo -c -o avahi_daemon-dbus-print-message.o `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo $(DEPDIR)/avahi_daemon-dbus-print-message.Po
+#	$(AM_V_CC)source='dbus-print-message.c' object='avahi_daemon-dbus-print-message.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-dbus-print-message.o `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
+
+avahi_daemon-dbus-print-message.obj: dbus-print-message.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-dbus-print-message.obj -MD -MP -MF $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo -c -o avahi_daemon-dbus-print-message.obj `if test -f 'dbus-print-message.c'; then $(CYGPATH_W) 'dbus-print-message.c'; else $(CYGPATH_W) '$(srcdir)/dbus-print-message.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo $(DEPDIR)/avahi_daemon-dbus-print-message.Po
+#	$(AM_V_CC)source='dbus-print-message.c' object='avahi_daemon-dbus-print-message.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-dbus-print-message.obj `if test -f 'dbus-print-message.c'; then $(CYGPATH_W) 'dbus-print-message.c'; else $(CYGPATH_W) '$(srcdir)/dbus-print-message.c'; fi`
 
 avahi_daemon-check-nss.o: ../avahi-client/check-nss.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-check-nss.o -MD -MP -MF $(DEPDIR)/avahi_daemon-check-nss.Tpo -c -o avahi_daemon-check-nss.o `test -f '../avahi-client/check-nss.c' || echo '$(srcdir)/'`../avahi-client/check-nss.c

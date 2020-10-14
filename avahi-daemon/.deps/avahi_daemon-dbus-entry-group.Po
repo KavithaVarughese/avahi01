@@ -85,7 +85,8 @@ avahi_daemon-dbus-entry-group.o: dbus-entry-group.c \
  /usr/include/x86_64-linux-gnu/bits/poll2.h \
  /usr/include/x86_64-linux-gnu/sys/time.h ../avahi-common/timeval.h \
  ../avahi-core/rr.h ../avahi-core/publish.h ../avahi-core/lookup.h \
- ../avahi-common/llist.h main.h ../avahi-common/simple-watch.h
+ ../avahi-common/llist.h dbus-print-message.h main.h \
+ ../avahi-common/simple-watch.h
 
 /usr/include/stdc-predef.h:
 
@@ -304,6 +305,8 @@ dbus-internal.h:
 ../avahi-core/lookup.h:
 
 ../avahi-common/llist.h:
+
+dbus-print-message.h:
 
 main.h:
 

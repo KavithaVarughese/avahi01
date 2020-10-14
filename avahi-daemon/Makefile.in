@@ -187,9 +187,10 @@ am__avahi_daemon_SOURCES_DIST = main.c main.h simple-protocol.c \
 	simple-protocol.h static-services.c static-services.h \
 	static-hosts.c static-hosts.h ini-file-parser.c \
 	ini-file-parser.h setproctitle.c setproctitle.h sd-daemon.h \
-	sd-daemon.c ../avahi-client/check-nss.c chroot.c chroot.h \
-	caps.c caps.h dbus-protocol.c dbus-protocol.h dbus-util.c \
-	dbus-util.h dbus-internal.h dbus-async-address-resolver.c \
+	sd-daemon.c dbus-print-message.c dbus-print-message.h \
+	../avahi-client/check-nss.c chroot.c chroot.h caps.c caps.h \
+	dbus-protocol.c dbus-protocol.h dbus-util.c dbus-util.h \
+	dbus-internal.h dbus-async-address-resolver.c \
 	dbus-async-host-name-resolver.c dbus-async-service-resolver.c \
 	dbus-domain-browser.c dbus-entry-group.c \
 	dbus-service-browser.c dbus-service-type-browser.c \
@@ -222,6 +223,7 @@ am__avahi_daemon_SOURCES_DIST = main.c main.h simple-protocol.c \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	avahi_daemon-ini-file-parser.$(OBJEXT) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	avahi_daemon-setproctitle.$(OBJEXT) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	avahi_daemon-sd-daemon.$(OBJEXT) \
+@HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	avahi_daemon-dbus-print-message.$(OBJEXT) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	avahi_daemon-check-nss.$(OBJEXT) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	$(am__objects_1) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	$(am__objects_2)
@@ -631,6 +633,8 @@ AM_CFLAGS = -I$(top_srcdir) '-DDEBUG_TRAP=__asm__("int $$3")' \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	setproctitle.c \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	setproctitle.h sd-daemon.h \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	sd-daemon.c \
+@HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	dbus-print-message.c \
+@HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	dbus-print-message.h \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	../avahi-client/check-nss.c \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	$(am__append_2) \
 @HAVE_LIBDAEMON_TRUE@@HAVE_XML_TRUE@	$(am__append_5)
@@ -811,6 +815,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-async-service-resolver.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-domain-browser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-entry-group.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-print-message.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-protocol.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-record-browser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avahi_daemon-dbus-service-browser.Po@am__quote@
@@ -949,6 +954,20 @@ avahi_daemon-sd-daemon.obj: sd-daemon.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sd-daemon.c' object='avahi_daemon-sd-daemon.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-sd-daemon.obj `if test -f 'sd-daemon.c'; then $(CYGPATH_W) 'sd-daemon.c'; else $(CYGPATH_W) '$(srcdir)/sd-daemon.c'; fi`
+
+avahi_daemon-dbus-print-message.o: dbus-print-message.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-dbus-print-message.o -MD -MP -MF $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo -c -o avahi_daemon-dbus-print-message.o `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo $(DEPDIR)/avahi_daemon-dbus-print-message.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dbus-print-message.c' object='avahi_daemon-dbus-print-message.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-dbus-print-message.o `test -f 'dbus-print-message.c' || echo '$(srcdir)/'`dbus-print-message.c
+
+avahi_daemon-dbus-print-message.obj: dbus-print-message.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-dbus-print-message.obj -MD -MP -MF $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo -c -o avahi_daemon-dbus-print-message.obj `if test -f 'dbus-print-message.c'; then $(CYGPATH_W) 'dbus-print-message.c'; else $(CYGPATH_W) '$(srcdir)/dbus-print-message.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/avahi_daemon-dbus-print-message.Tpo $(DEPDIR)/avahi_daemon-dbus-print-message.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dbus-print-message.c' object='avahi_daemon-dbus-print-message.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -c -o avahi_daemon-dbus-print-message.obj `if test -f 'dbus-print-message.c'; then $(CYGPATH_W) 'dbus-print-message.c'; else $(CYGPATH_W) '$(srcdir)/dbus-print-message.c'; fi`
 
 avahi_daemon-check-nss.o: ../avahi-client/check-nss.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(avahi_daemon_CFLAGS) $(CFLAGS) -MT avahi_daemon-check-nss.o -MD -MP -MF $(DEPDIR)/avahi_daemon-check-nss.Tpo -c -o avahi_daemon-check-nss.o `test -f '../avahi-client/check-nss.c' || echo '$(srcdir)/'`../avahi-client/check-nss.c

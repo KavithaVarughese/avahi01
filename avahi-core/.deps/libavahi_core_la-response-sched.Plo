@@ -87,7 +87,7 @@ libavahi_core_la-response-sched.lo: response-sched.c \
  /usr/include/asm-generic/posix_types.h /usr/include/linux/socket.h \
  /usr/include/linux/rtnetlink.h /usr/include/linux/if_link.h \
  /usr/include/linux/if_addr.h /usr/include/linux/neighbour.h log.h \
- rr-util.h
+ rr-util.h util.h
 
 /usr/include/stdc-predef.h:
 
@@ -356,3 +356,5 @@ netlink.h:
 log.h:
 
 rr-util.h:
+
+util.h:

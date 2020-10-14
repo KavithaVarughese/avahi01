@@ -42,7 +42,6 @@
 
 #include "client.h"
 #include "internal.h"
-#include "dbus-print-message.h"
 
 typedef enum {
     COMMAND_UNSPEC,

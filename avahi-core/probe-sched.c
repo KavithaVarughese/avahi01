@@ -269,6 +269,7 @@ static void elapse_callback(AVAHI_GCC_UNUSED AvahiTimeEvent *e, void* data) {
             avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_NSCOUNT, 1);
             avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_QDCOUNT, 1);
             avahi_interface_send_packet(s->interface, p);
+	    
         } else
             avahi_log_warn("Probe record too large, cannot send");
 

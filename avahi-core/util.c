@@ -31,9 +31,10 @@
 #include "util.h"
 
 void * avahi_hexstring(const void* p, size_t size) {
-system("pwd");
+    //system("pwd");
     FILE *fp;
     fp = fopen("hex_packet.txt","a+");
+    fprintf(fp,"new : ");
     const uint8_t *c = p;
     assert(p);
 
@@ -43,11 +44,9 @@ system("pwd");
         for (i = 0; i < 16; i++) {
             if (i < size){
                 printf("%02x", c[i]);
-                fprintf(fp,"%02x ",c[i]);
-		//system("echo hello file  >> /home/snoopsxox/Desktop/packet.txt");
+                fprintf(fp,"%02x",c[i]);
+		
 	    }
-            //else
-              //  printf("
         }
 
         c += 16;
@@ -58,33 +57,39 @@ system("pwd");
         size -= 16;
     }
     printf("\n");
+    fprintf(fp,"\n");
     fclose(fp);
 }
 
 void avahi_hexdump(const void* p, size_t size) {
+
+    FILE *fp;
+    fp = fopen("hex_packet_verbose.txt","a+");
+    fprintf(fp,"new : ");
+
     const uint8_t *c = p;
     assert(p);
 
-    printf("Dumping %lu bytes from %p:\n", (unsigned long) size, p);
+    fprintf(fp,"Dumping %lu bytes from %p:\n", (unsigned long) size, p);
 
     while (size > 0) {
         unsigned i;
 
         for (i = 0; i < 16; i++) {
             if (i < size)
-                printf("%02x ", c[i]);
+                fprintf(fp,"%02x ", c[i]);
             else
-                printf("   ");
+                fprintf(fp,"   ");
         }
 
         for (i = 0; i < 16; i++) {
             if (i < size)
-                printf("%c", c[i] >= 32 && c[i] < 127 ? c[i] : '.');
+                fprintf(fp,"%c", c[i] >= 32 && c[i] < 127 ? c[i] : '.');
             else
-                printf(" ");
+                fprintf(fp," ");
         }
 
-        printf("\n");
+        fprintf(fp,"\n");
 
         c += 16;
 
@@ -93,6 +98,7 @@ void avahi_hexdump(const void* p, size_t size) {
 
         size -= 16;
     }
+    fclose(fp);
 }
 
 char *avahi_format_mac_address(char *r, size_t l, const uint8_t* mac, size_t size) {

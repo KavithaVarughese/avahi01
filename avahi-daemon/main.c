@@ -900,7 +900,6 @@ printf(" Enter load config file >> printlog.txt");
             goto finish;
         }
     }
-
     r = 0;
 
 finish:

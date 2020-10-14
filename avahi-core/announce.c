@@ -97,6 +97,10 @@ void avahi_s_entry_group_check_probed(AvahiSEntryGroup *g, int immediately) {
                 /* Shortcut */
 
                 a->n_iteration = 1;
+
+		
+                    
+
                 next_state(a);
             } else {
                 struct timeval tv;
@@ -111,6 +115,7 @@ void avahi_s_entry_group_check_probed(AvahiSEntryGroup *g, int immediately) {
 static void next_state(AvahiAnnouncer *a) {
     assert(a);
 
+    
     if (a->state == AVAHI_WAITING) {
 
         assert(a->entry->group);
@@ -155,8 +160,14 @@ static void next_state(AvahiAnnouncer *a) {
         else
             avahi_server_prepare_response(a->server, a->interface, a->entry, 0, 0);
 
-        avahi_server_generate_response(a->server, a->interface, NULL, NULL, 0, 0, 0);
+	/*int unicast_response, flush_cache, auxiliary;
+    	AvahiDnsPacket *reply = NULL;
+    	AvahiRecord *r;
+    	while ((r = avahi_record_list_next(a->server->record_list, &flush_cache, &unicast_response, &auxiliary))){
+        	printf("\n<<<<<<<<<< \n%s\n>>>>>>>>>>\n",avahi_record_to_string(r));
+    	}*/
 
+        avahi_server_generate_response(a->server, a->interface, NULL, NULL, 0, 0, 0);
         if (++a->n_iteration >= 4) {
             /* Announcing done */
 
@@ -177,6 +188,13 @@ static void next_state(AvahiAnnouncer *a) {
 
 static void elapse_announce(AvahiTimeEvent *e, void *userdata) {
     assert(e);
+
+    AvahiAnnouncer *a = userdata;
+    int unicast_response, flush_cache, auxiliary;
+                    AvahiDnsPacket *reply = NULL;
+                    AvahiRecord *r;
+                    while ((r = avahi_record_list_next(a->server->record_list, &flush_cache, &unicast_response, &auxiliary))){
+                        printf("\n<<<<<<<<<< \n%s\n>>>>>>>>>>\n",avahi_record_to_string(r));}
 
     next_state(userdata);
 }
@@ -294,13 +312,13 @@ void avahi_announce_entry(AvahiServer *s, AvahiEntry *e) {
 
 void avahi_announce_group(AvahiServer *s, AvahiSEntryGroup *g) {
     AvahiEntry *e;
-
     assert(s);
     assert(g);
 
     for (e = g->entries; e; e = e->by_group_next)
         if (!e->dead)
             avahi_announce_entry(s, e);
+    
 }
 
 int avahi_entry_is_registered(AvahiServer *s, AvahiEntry *e, AvahiInterface *i) {

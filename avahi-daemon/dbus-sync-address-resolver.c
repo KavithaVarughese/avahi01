@@ -33,7 +33,7 @@
 #include "main.h"
 
 void avahi_dbus_sync_address_resolver_free(SyncAddressResolverInfo *i) {
-printf("Enter dbus sync addess resolver free\n");
+
     assert(i);
 
     if (i->address_resolver)
@@ -48,7 +48,7 @@ printf("Enter dbus sync addess resolver free\n");
 }
 
 void avahi_dbus_sync_address_resolver_callback(AvahiSAddressResolver *r, AvahiIfIndex interface, AvahiProtocol protocol, AvahiResolverEvent event, const AvahiAddress *address, const char *host_name, AvahiLookupResultFlags flags, void* userdata) {
-printf("Enter dbus sync addess resolver callback\n");
+
     SyncAddressResolverInfo *i = userdata;
 
     assert(r);

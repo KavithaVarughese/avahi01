@@ -28,6 +28,7 @@
 
 #include "query-sched.h"
 #include "log.h"
+#include "util.h"
 
 #define AVAHI_QUERY_HISTORY_MSEC 100
 #define AVAHI_QUERY_DEFER_MSEC 100
@@ -226,6 +227,7 @@ static int packet_add_query_job(AvahiQueryScheduler *s, AvahiDnsPacket *p, Avahi
 }
 
 static void append_known_answers_and_send(AvahiQueryScheduler *s, AvahiDnsPacket *p) {
+    printf("\nAppend known answers\n");
     AvahiKnownAnswer *ka;
     unsigned n;
     assert(s);
@@ -256,7 +258,7 @@ static void append_known_answers_and_send(AvahiQueryScheduler *s, AvahiDnsPacket
             p = avahi_dns_packet_new_query(s->interface->hardware->mtu);
             n = 0;
         }
-
+	
         AVAHI_LLIST_REMOVE(AvahiKnownAnswer, known_answer, s->known_answers, ka);
         avahi_record_unref(ka->record);
         avahi_free(ka);
@@ -265,9 +267,12 @@ static void append_known_answers_and_send(AvahiQueryScheduler *s, AvahiDnsPacket
             n++;
     }
 
+    
     avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_ANCOUNT, n);
+    avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
     avahi_interface_send_packet(s->interface, p);
     avahi_dns_packet_free(p);
+    printf("\nExit Append known answers\n");
 }
 
 static void elapse_callback(AVAHI_GCC_UNUSED AvahiTimeEvent *e, void* data) {

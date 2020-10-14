@@ -53,6 +53,7 @@ avahi_daemon_SOURCES = \
 	ini-file-parser.c ini-file-parser.h \
 	setproctitle.c setproctitle.h \
 	sd-daemon.h sd-daemon.c \
+        dbus-print-message.c dbus-print-message.h \
 	../avahi-client/check-nss.c
 
 avahi_daemon_CFLAGS = $(AM_CFLAGS) $(LIBDAEMON_CFLAGS) $(XML_CFLAGS)
