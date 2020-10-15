@@ -1116,8 +1116,15 @@ static void mcast_socket_event(AvahiWatch *w, int fd, AvahiWatchEvent events, vo
         assert(fd == s->fd_ipv6);
         dest.proto = src.proto = AVAHI_PROTO_INET6;
         p = avahi_recv_dns_packet_ipv6(s->fd_ipv6, &src.data.ipv6, &port, &dest.data.ipv6, &iface, &ttl);
-	printf("\n=====SRC6===\n%d\n", src.data.ipv6.address[0]);
-        printf("\n=====DEST6====\n%d\n", dest.data.ipv6.address[0]);
+	printf("\n=====SRC6===\n"); 
+	for (int i = 0; i < 16; i++){
+		printf("%d ", src.data.ipv6.address[i]);
+	}
+	
+        printf("\n=====DEST6====\n");
+	for (int i = 0; i < 16; i++){
+		printf("%d ", dest.data.ipv6.address[i]);
+	}
 	printf("\n######port####### %d #####\n", port);
     }
 

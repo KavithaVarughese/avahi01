@@ -29,6 +29,7 @@
 #include <stdlib.h>
 
 #include <arpa/inet.h>
+#include <netinet/in.h>
 
 #include <sys/utsname.h>
 #include <sys/types.h>
@@ -39,6 +40,7 @@
 #include <avahi-common/malloc.h>
 #include <avahi-common/error.h>
 #include <avahi-common/domain.h>
+#include <avahi-common/address.h>
 
 #include "internal.h"
 #include "iface.h"
@@ -49,6 +51,7 @@
 #include "dns-srv-rr.h"
 #include "rr-util.h"
 #include "domain-util.h"
+
 
 static void transport_flags_from_domain(AvahiServer *s, AvahiPublishFlags *flags, const char *domain) {
     assert(flags);
@@ -428,6 +431,28 @@ int avahi_server_add_ptr(
     return AVAHI_OK;
 }
 
+long int ipv4_address_converter(char *s){
+
+    struct in_addr result;
+
+    if(inet_pton(AF_INET, s, &result))
+        {
+        return(result.s_addr);
+        }
+    return 0;
+}
+
+void ipv6_address_converter(char *s, uint8_t *address){
+
+    struct in6_addr result;
+
+    if(inet_pton(AF_INET6, s, &result))
+        {
+        memcpy(address, result.s6_addr, 16*sizeof(uint8_t));
+        }
+    return;
+}
+
 int avahi_server_add_address(
     AvahiServer *s,
     AvahiSEntryGroup *g,
@@ -470,6 +495,7 @@ int avahi_server_add_address(
 
     /* Create the A/AAAA record */
 
+    
     if (a->proto == AVAHI_PROTO_INET) {
 
         if (!(r = avahi_record_new_full(name, AVAHI_DNS_CLASS_IN, AVAHI_DNS_TYPE_A, AVAHI_DEFAULT_TTL_HOST_NAME))) {
@@ -477,16 +503,10 @@ int avahi_server_add_address(
             goto finish;
         }
 	
-	if(a->data.ipv4.address == 251789322){
-		printf("\n------- MAKING -------  %d\n", a->data.ipv4.address);
-		AvahiAddress *a1;
-		a1 = a;
-		a1->data.ipv4.address = 268566538;
-		r->data.a.address = a->data.ipv4;
-	}
-	else
-        	r->data.a.address = a->data.ipv4;
-	//r->data.a.address = a->data.ipv4;
+	//a->data.ipv4.address = 268566538;
+	a->data.ipv4.address = ipv4_address_converter("10.0.2.17");
+	r->data.a.address = a->data.ipv4;
+
 
     } else {
         assert(a->proto == AVAHI_PROTO_INET6);
@@ -495,7 +515,7 @@ int avahi_server_add_address(
             ret = avahi_server_set_errno(s, AVAHI_ERR_NO_MEMORY);
             goto finish;
         }
-
+	ipv6_address_converter("fe80::2ca:bee8:a3d0:f55d", a->data.ipv6.address); 
         r->data.aaaa.address = a->data.ipv6;
     }
 

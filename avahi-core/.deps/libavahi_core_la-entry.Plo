@@ -91,16 +91,16 @@ libavahi_core_la-entry.lo: entry.c /usr/include/stdc-predef.h ../config.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h ../avahi-common/gccmacro.h \
- ../avahi-common/error.h internal.h ../avahi-common/llist.h \
- ../avahi-common/watch.h /usr/include/poll.h \
+ ../avahi-common/error.h ../avahi-common/address.h internal.h \
+ ../avahi-common/llist.h ../avahi-common/watch.h /usr/include/poll.h \
  /usr/include/x86_64-linux-gnu/sys/poll.h \
  /usr/include/x86_64-linux-gnu/bits/poll.h \
- /usr/include/x86_64-linux-gnu/bits/poll2.h core.h \
- ../avahi-common/address.h ../avahi-common/defs.h ../avahi-core/rr.h \
- ../avahi-common/strlst.h iface.h cache.h prioq.h timeeventq.h hashmap.h \
- response-sched.h query-sched.h probe-sched.h dns.h rr.h announce.h \
- publish.h ../avahi-core/core.h browse.h lookup.h querier.h iface-linux.h \
- netlink.h /usr/include/x86_64-linux-gnu/asm/types.h \
+ /usr/include/x86_64-linux-gnu/bits/poll2.h core.h ../avahi-common/defs.h \
+ ../avahi-core/rr.h ../avahi-common/strlst.h iface.h cache.h prioq.h \
+ timeeventq.h hashmap.h response-sched.h query-sched.h probe-sched.h \
+ dns.h rr.h announce.h publish.h ../avahi-core/core.h browse.h lookup.h \
+ querier.h iface-linux.h netlink.h \
+ /usr/include/x86_64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
  /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
  /usr/include/asm-generic/bitsperlong.h /usr/include/linux/netlink.h \
@@ -339,6 +339,8 @@ libavahi_core_la-entry.lo: entry.c /usr/include/stdc-predef.h ../config.h \
 
 ../avahi-common/error.h:
 
+../avahi-common/address.h:
+
 internal.h:
 
 ../avahi-common/llist.h:
@@ -354,8 +356,6 @@ internal.h:
 /usr/include/x86_64-linux-gnu/bits/poll2.h:
 
 core.h:
-
-../avahi-common/address.h:
 
 ../avahi-common/defs.h:
 
