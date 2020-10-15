@@ -269,7 +269,6 @@ static void append_known_answers_and_send(AvahiQueryScheduler *s, AvahiDnsPacket
 
     
     avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_ANCOUNT, n);
-    avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
     avahi_interface_send_packet(s->interface, p);
     avahi_dns_packet_free(p);
     printf("\nExit Append known answers\n");

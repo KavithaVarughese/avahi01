@@ -76,8 +76,6 @@ struct AvahiResponseScheduler {
 };
 
 
-int flag = 0;
-
 static AvahiResponseJob* job_new(AvahiResponseScheduler *s, AvahiRecord *record, AvahiResponseJobState state) {
 //printf("\nEnter new job definition\n");
     AvahiResponseJob *rj;
@@ -253,8 +251,8 @@ static void send_response_packet(AvahiResponseScheduler *s, AvahiResponseJob *rj
    
     AvahiDnsPacket *p;
     unsigned n;
-
-    static int foo = 0; 
+    static int flag = 0;
+    //static int foo = 0; 
 
     assert(s);
     assert(rj);
@@ -266,14 +264,24 @@ static void send_response_packet(AvahiResponseScheduler *s, AvahiResponseJob *rj
     
 
     /* Put it in the packet. */
+   if(rj->record->key->type == AVAHI_DNS_TYPE_TXT && flag == 0){
+	        printf("\n----the wanted----%s\n", rj->record->key->name);
+                if (strcmp(rj->record->key->name,"arjun._airplay._tcp.local") == 0)
+                {
+                    flag = 1;
+                }
+                
+            }
     if (packet_add_response_job(s, p, rj)) {
 
         /* Try to fill up packet with more responses, if available */
         while (s->jobs) {
 	    
+	    
             if (!packet_add_response_job(s, p, s->jobs))
                 break;
-
+	    
+	    
             n++;
         }
 
@@ -292,6 +300,7 @@ static void send_response_packet(AvahiResponseScheduler *s, AvahiResponseJob *rj
         if (!packet_add_response_job(s, p, rj)) {
             avahi_dns_packet_free(p);
 
+      	    
             avahi_log_warn("Record too large, cannot send");
             job_mark_done(s, rj);
             return;
@@ -299,15 +308,16 @@ static void send_response_packet(AvahiResponseScheduler *s, AvahiResponseJob *rj
     }
 
     avahi_dns_packet_set_field(p, AVAHI_DNS_FIELD_ANCOUNT, n);
+    //avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
     avahi_interface_send_packet(s->interface, p);
     //FILE *fp;
     //fp = fopen("hex_packet_verbose.txt","r");
-    /*if (foo == 0){
+    if (flag == 1){
     		printf("\nEnter responce_sched.c 001\n");
     		avahi_hexstring(AVAHI_DNS_PACKET_DATA(p), p->size);
 		avahi_hexdump(AVAHI_DNS_PACKET_DATA(p), p->size);
-		foo = 1;
-    }*/
+		flag = 2;
+    }
     
     avahi_dns_packet_free(p);
 }
@@ -316,7 +326,6 @@ static void elapse_callback(AVAHI_GCC_UNUSED AvahiTimeEvent *e, void* data) {
     //printf("\n-------------------------Enter elapse callback----------------------------------------\n");
     AvahiResponseJob *rj = data;
     
-    flag = 1;
     assert(rj); 
 
     /*AvahiResponseJob *rj1;

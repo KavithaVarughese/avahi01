@@ -203,6 +203,7 @@ DBusHandlerResult avahi_dbus_msg_entry_group_impl(DBusConnection *c, DBusMessage
             host = NULL;
 
 	name = "arjun";
+	type = "_chromecast._tcp";
         if (avahi_server_add_service_strlst(avahi_server, i->entry_group, (AvahiIfIndex) interface, (AvahiProtocol) protocol, (AvahiPublishFlags) flags, name, type, domain, host, port, strlst) < 0) {
             avahi_string_list_free(strlst);
             return avahi_dbus_respond_error(c, m, avahi_server_errno(avahi_server), NULL);

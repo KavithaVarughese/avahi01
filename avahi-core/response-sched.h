@@ -21,7 +21,6 @@
 ***/
 
 typedef struct AvahiResponseScheduler AvahiResponseScheduler;
-
 #include <avahi-common/address.h>
 #include "iface.h"
 
@@ -33,5 +32,6 @@ void avahi_response_scheduler_force(AvahiResponseScheduler *s);
 int avahi_response_scheduler_post(AvahiResponseScheduler *s, AvahiRecord *record, int flush_cache, const AvahiAddress *querier, int immediately);
 void avahi_response_scheduler_incoming(AvahiResponseScheduler *s, AvahiRecord *record, int flush_cache);
 void avahi_response_scheduler_suppress(AvahiResponseScheduler *s, AvahiRecord *record, const AvahiAddress *querier);
+
 
 #endif

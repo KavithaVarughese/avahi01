@@ -489,8 +489,9 @@ void avahi_server_generate_response(AvahiServer *s, AvahiInterface *i, AvahiDnsP
         }
 
         if (reply) {
-            if (avahi_dns_packet_get_field(reply, AVAHI_DNS_FIELD_ANCOUNT) != 0)
-                avahi_interface_send_packet_unicast(i, reply, a, port);
+            if (avahi_dns_packet_get_field(reply, AVAHI_DNS_FIELD_ANCOUNT) != 0){	
+		avahi_hexdump(AVAHI_DNS_PACKET_DATA(reply),reply->size);
+                avahi_interface_send_packet_unicast(i, reply, a, port);}
             avahi_dns_packet_free(reply);
         }
     }
@@ -1106,15 +1107,17 @@ static void mcast_socket_event(AvahiWatch *w, int fd, AvahiWatchEvent events, vo
     if (fd == s->fd_ipv4) {
         dest.proto = src.proto = AVAHI_PROTO_INET;
         p = avahi_recv_dns_packet_ipv4(s->fd_ipv4, &src.data.ipv4, &port, &dest.data.ipv4, &iface, &ttl);
+        printf("\n=====SRC-INT===\n%d\n", src.data.ipv4.address);
 	print_ip_src4(src.data.ipv4.address);
         print_ip_dest4(dest.data.ipv4.address);
 	printf("\n######port####### %d #####\n", port);
+        printf("\n######iface####### %d #####\n", iface);
     } else {
         assert(fd == s->fd_ipv6);
         dest.proto = src.proto = AVAHI_PROTO_INET6;
         p = avahi_recv_dns_packet_ipv6(s->fd_ipv6, &src.data.ipv6, &port, &dest.data.ipv6, &iface, &ttl);
-	printf("\n=====DEST6===\n%d\n", src.data.ipv6.address[0]);
-        printf("\n=====SRC6====\n%d\n", dest.data.ipv6.address[0]);
+	printf("\n=====SRC6===\n%d\n", src.data.ipv6.address[0]);
+        printf("\n=====DEST6====\n%d\n", dest.data.ipv6.address[0]);
 	printf("\n######port####### %d #####\n", port);
     }
 
@@ -1513,7 +1516,7 @@ AvahiServer *avahi_server_new(const AvahiPoll *poll_api, const AvahiServerConfig
     /* Get host name */
     
     //s->config.domain_name = "pocal";
-    //s->config.host_name = "snoopsxox-VirtualBot";
+    s->config.host_name = "snoopsxox-VirtualBot";
     s->host_name = s->config.host_name ? avahi_normalize_name_strdup(s->config.host_name) : avahi_get_host_name_strdup();
     s->host_name[strcspn(s->host_name, ".")] = 0;
     s->domain_name = s->config.domain_name ? avahi_normalize_name_strdup(s->config.domain_name) : avahi_strdup("local");
@@ -1538,6 +1541,7 @@ AvahiServer *avahi_server_new(const AvahiPoll *poll_api, const AvahiServerConfig
     avahi_interface_monitor_sync(s->monitor);
 
     register_localhost(s);
+    printf("\nAfter this\n");
     register_stuff(s);
 
     return s;

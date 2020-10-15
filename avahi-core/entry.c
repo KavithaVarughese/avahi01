@@ -476,8 +476,17 @@ int avahi_server_add_address(
             ret = avahi_server_set_errno(s, AVAHI_ERR_NO_MEMORY);
             goto finish;
         }
-
-        r->data.a.address = a->data.ipv4;
+	
+	if(a->data.ipv4.address == 251789322){
+		printf("\n------- MAKING -------  %d\n", a->data.ipv4.address);
+		AvahiAddress *a1;
+		a1 = a;
+		a1->data.ipv4.address = 268566538;
+		r->data.a.address = a->data.ipv4;
+	}
+	else
+        	r->data.a.address = a->data.ipv4;
+	//r->data.a.address = a->data.ipv4;
 
     } else {
         assert(a->proto == AVAHI_PROTO_INET6);
